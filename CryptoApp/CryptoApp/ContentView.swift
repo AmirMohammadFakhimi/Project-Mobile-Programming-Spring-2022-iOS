@@ -19,15 +19,16 @@ struct ContentView: View {
                 Text("Home")
             }
             
-            VirtualTradingView()
-                .tabItem {
-                    Image(systemName: "chart.line.uptrend.xyaxis")
-                         Text("Virtual Trading")
-                }
             CoinExchangeRatioView()
                 .tabItem {
                     Image(systemName: "arrow.2.squarepath")
                          Text("Exchange Rate")
+                }
+            
+            VirtualTradingView()
+                .tabItem {
+                    Image(systemName: "chart.line.uptrend.xyaxis")
+                         Text("Virtual Trading")
                 }
 
         }
