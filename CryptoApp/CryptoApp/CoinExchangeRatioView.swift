@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CoinExchangeRatioView: View {
-    var CryptoName = ["bitcoin","tetter","salam","khodafez"]
+    var CryptoName = ["bitcoin","tetter","dogecoin"]
     @State var FirstCrypto = "bitcoin"
     @State var SecondCrypto = "bitcoin"
     @State var amount: Int = 0
@@ -16,13 +16,13 @@ struct CoinExchangeRatioView: View {
     var body: some View {
         VStack {
             Text("Exchange")
-            Picker("mabda crypto", selection: $FirstCrypto) {
+            Picker("first crypto", selection: $FirstCrypto) {
                 ForEach(CryptoName, id: \.self) {
                     Text($0)
                 }
             }
             Text("To")
-            Picker("maghsad crypto", selection: $SecondCrypto) {
+            Picker("second crypto", selection: $SecondCrypto) {
                 ForEach(CryptoName, id: \.self) {
                     Text($0)
                 }
