@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E4057ACA28872DFA0039AA66 /* VirtualBuySellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4057AC928872DFA0039AA66 /* VirtualBuySellView.swift */; };
 		E41DEE14287CB6030057EC6D /* CryptoAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41DEE13287CB6030057EC6D /* CryptoAppApp.swift */; };
 		E41DEE16287CB6030057EC6D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41DEE15287CB6030057EC6D /* ContentView.swift */; };
 		E41DEE18287CB6050057EC6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E41DEE17287CB6050057EC6D /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E4057AC928872DFA0039AA66 /* VirtualBuySellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualBuySellView.swift; sourceTree = "<group>"; };
 		E41DEE10287CB6030057EC6D /* CryptoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E41DEE13287CB6030057EC6D /* CryptoAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoAppApp.swift; sourceTree = "<group>"; };
 		E41DEE15287CB6030057EC6D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 			children = (
 				E41DEE13287CB6030057EC6D /* CryptoAppApp.swift */,
 				E41DEE15287CB6030057EC6D /* ContentView.swift */,
+				E4057AC928872DFA0039AA66 /* VirtualBuySellView.swift */,
 				E41DEE23287CB9440057EC6D /* VirtualTradingView.swift */,
 				E41DEE21287CB75E0057EC6D /* CoinExchangeRatioView.swift */,
 				E41DEE17287CB6050057EC6D /* Assets.xcassets */,
@@ -147,6 +150,7 @@
 				E41DEE14287CB6030057EC6D /* CryptoAppApp.swift in Sources */,
 				E41DEE24287CB9440057EC6D /* VirtualTradingView.swift in Sources */,
 				E41DEE22287CB75F0057EC6D /* CoinExchangeRatioView.swift in Sources */,
+				E4057ACA28872DFA0039AA66 /* VirtualBuySellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

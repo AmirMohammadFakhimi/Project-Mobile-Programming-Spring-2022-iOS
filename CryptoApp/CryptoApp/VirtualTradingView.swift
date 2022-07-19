@@ -9,6 +9,12 @@ import SwiftUI
 
 
 struct VirtualTradingView: View {
+    @State var tether_name = "tether"
+    @State var bitcoin_name = "bitcoin"
+    @State var etherium_name = "etherium"
+    @State var binance_name = "binance"
+    @State var doge_name = "doge"
+    
     @State var current_tether_amount = 5000.0
     @State var current_bitcoin_amount = 0.0
     @State var current_etherium_amount = 0.0
@@ -52,7 +58,7 @@ struct VirtualTradingView: View {
                             .padding(.trailing)
                         VStack {
                             NavigationLink {
-                                CoinExchangeRatioView()
+                                VirtualBuySellView(coin_name: $bitcoin_name, coin_price: $current_bitcoin_price, coin_amount: $current_bitcoin_amount, tether_amount: $current_tether_amount)
                             } label: {
                                 VStack(alignment: .leading) {
                                     Text("Bitcoin (BTC)")
@@ -73,7 +79,7 @@ struct VirtualTradingView: View {
                             .padding(.trailing)
                         VStack {
                             NavigationLink {
-                                CoinExchangeRatioView()
+                                VirtualBuySellView(coin_name: $etherium_name, coin_price: $current_etherium_price, coin_amount: $current_etherium_amount, tether_amount: $current_tether_amount)
                             } label: {
                                 VStack(alignment: .leading) {
                                     Text("Etherium (ETH)")
@@ -94,7 +100,7 @@ struct VirtualTradingView: View {
                             .padding(.trailing)
                         VStack {
                             NavigationLink {
-                                CoinExchangeRatioView()
+                                VirtualBuySellView(coin_name: $binance_name, coin_price: $current_binance_price, coin_amount: $current_binance_amount, tether_amount: $current_tether_amount)
                             } label: {
                                 VStack(alignment: .leading) {
                                     Text("Binance (BNB)")
@@ -115,13 +121,13 @@ struct VirtualTradingView: View {
                             .padding(.trailing)
                         VStack {
                             NavigationLink {
-                                CoinExchangeRatioView()
+                                VirtualBuySellView(coin_name: $doge_name, coin_price: $current_doge_price, coin_amount: $current_doge_amount, tether_amount: $current_tether_amount)
                             } label: {
                                 VStack(alignment: .leading) {
                                     Text("Dogecoin (DOGE)")
                                         .bold()
-                                    Text("\(String(format: "Current Amount: %.3f", current_binance_amount))")
-                                    Text("\(String(format: "Current Price: %.1f$", current_binance_price))")
+                                    Text("\(String(format: "Current Amount: %.3f", current_doge_amount))")
+                                    Text("\(String(format: "Current Price: %.3f$", current_doge_price))")
                                 }
                             }
                         }
