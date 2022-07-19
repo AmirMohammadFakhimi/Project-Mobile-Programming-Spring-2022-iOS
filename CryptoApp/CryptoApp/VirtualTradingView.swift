@@ -13,11 +13,13 @@ struct VirtualTradingView: View {
     @State var current_bitcoin_amount = 0.0
     @State var current_etherium_amount = 0.0
     @State var current_binance_amount = 0.0
+    @State var current_doge_amount = 0.0
 
     @State var current_tether_price = 1.0
     @State var current_bitcoin_price = 20000.0
     @State var current_etherium_price = 2000.0
     @State var current_binance_price = 200.0
+    @State var current_doge_price = 0.08
     
     func get_total_money() -> Double {
         return current_tether_price * current_tether_amount + current_bitcoin_price * current_bitcoin_amount + current_etherium_price * current_etherium_amount + current_binance_price * current_binance_amount
@@ -96,6 +98,27 @@ struct VirtualTradingView: View {
                             } label: {
                                 VStack(alignment: .leading) {
                                     Text("Binance (BNB)")
+                                        .bold()
+                                    Text("\(String(format: "Current Amount: %.3f", current_binance_amount))")
+                                    Text("\(String(format: "Current Price: %.1f$", current_binance_price))")
+                                }
+                            }
+                        }
+                    }
+                    .padding(.top, 5)
+                    .padding(.bottom, 5)
+                    HStack {
+                        Image("doge")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 70, height: 70)
+                            .padding(.trailing)
+                        VStack {
+                            NavigationLink {
+                                CoinExchangeRatioView()
+                            } label: {
+                                VStack(alignment: .leading) {
+                                    Text("Dogecoin (DOGE)")
                                         .bold()
                                     Text("\(String(format: "Current Amount: %.3f", current_binance_amount))")
                                     Text("\(String(format: "Current Price: %.1f$", current_binance_price))")
