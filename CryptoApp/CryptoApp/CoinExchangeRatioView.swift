@@ -8,13 +8,38 @@
 import SwiftUI
 
 struct CoinExchangeRatioView: View {
+    var CryptoName = ["bitcoin","tetter","dogecoin"]
+    @State var FirstCrypto = "bitcoin"
+    @State var SecondCrypto = "bitcoin"
+    @State var amount: Int = 0
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("Exchange")
+            Picker("first crypto", selection: $FirstCrypto) {
+                ForEach(CryptoName, id: \.self) {
+                    Text($0)
+                }
+            }
+            Text("To")
+            Picker("second crypto", selection: $SecondCrypto) {
+                ForEach(CryptoName, id: \.self) {
+                    Text($0)
+                }
+            }
+            HStack{
+                Text("amount:")
+                TextField("Enter amount", value: $amount, format: .number)
+                    .textFieldStyle(.roundedBorder)
+            }.padding()
+            Text("\(amount)  \(FirstCrypto)  <->  \(amount*2)  \(SecondCrypto)")
+        }.padding()
     }
 }
 
 struct CoinExchangeRatioView_Previews: PreviewProvider {
     static var previews: some View {
         CoinExchangeRatioView()
+            .previewInterfaceOrientation(.portrait)
     }
 }
