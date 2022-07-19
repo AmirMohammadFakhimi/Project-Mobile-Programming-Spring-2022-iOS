@@ -28,7 +28,7 @@ struct VirtualTradingView: View {
     @State var current_doge_price = 0.08
     
     func get_total_money() -> Double {
-        return current_tether_price * current_tether_amount + current_bitcoin_price * current_bitcoin_amount + current_etherium_price * current_etherium_amount + current_binance_price * current_binance_amount
+        return current_tether_price * current_tether_amount + current_bitcoin_price * current_bitcoin_amount + current_etherium_price * current_etherium_amount + current_binance_price * current_binance_amount + current_doge_price * current_doge_amount
     }
     
     var body: some View {
