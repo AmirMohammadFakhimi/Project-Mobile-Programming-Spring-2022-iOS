@@ -17,6 +17,12 @@
 		95EE119028886BAE00D0C12E /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EE117A28886BAD00D0C12E /* Persistence.swift */; };
 		95EE119128886BAE00D0C12E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95EE117B28886BAE00D0C12E /* Assets.xcassets */; };
 		95EE119228886BAE00D0C12E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95EE117B28886BAE00D0C12E /* Assets.xcassets */; };
+		95EE119C28886CF200D0C12E /* VirtualBuySellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EE119B28886CF200D0C12E /* VirtualBuySellView.swift */; };
+		95EE119D28886CF200D0C12E /* VirtualBuySellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EE119B28886CF200D0C12E /* VirtualBuySellView.swift */; };
+		95EE119F28886D3800D0C12E /* VirtualTradingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EE119E28886D3800D0C12E /* VirtualTradingView.swift */; };
+		95EE11A028886D3800D0C12E /* VirtualTradingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EE119E28886D3800D0C12E /* VirtualTradingView.swift */; };
+		95EE11A228886D6E00D0C12E /* CoinExchangeRatioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EE11A128886D6E00D0C12E /* CoinExchangeRatioView.swift */; };
+		95EE11A328886D6E00D0C12E /* CoinExchangeRatioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EE11A128886D6E00D0C12E /* CoinExchangeRatioView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +34,9 @@
 		95EE118028886BAE00D0C12E /* Cryptocurrency.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cryptocurrency.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95EE118628886BAE00D0C12E /* Cryptocurrency.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cryptocurrency.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95EE118828886BAE00D0C12E /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		95EE119B28886CF200D0C12E /* VirtualBuySellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualBuySellView.swift; sourceTree = "<group>"; };
+		95EE119E28886D3800D0C12E /* VirtualTradingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualTradingView.swift; sourceTree = "<group>"; };
+		95EE11A128886D6E00D0C12E /* CoinExchangeRatioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinExchangeRatioView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +74,9 @@
 				95EE117A28886BAD00D0C12E /* Persistence.swift */,
 				95EE117B28886BAE00D0C12E /* Assets.xcassets */,
 				95EE117628886BAD00D0C12E /* Cryptocurrency.xcdatamodeld */,
+				95EE119B28886CF200D0C12E /* VirtualBuySellView.swift */,
+				95EE119E28886D3800D0C12E /* VirtualTradingView.swift */,
+				95EE11A128886D6E00D0C12E /* CoinExchangeRatioView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -185,9 +197,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				95EE118928886BAE00D0C12E /* Cryptocurrency.xcdatamodeld in Sources */,
+				95EE11A228886D6E00D0C12E /* CoinExchangeRatioView.swift in Sources */,
 				95EE118F28886BAE00D0C12E /* Persistence.swift in Sources */,
+				95EE119F28886D3800D0C12E /* VirtualTradingView.swift in Sources */,
 				95EE118B28886BAE00D0C12E /* CryptocurrencyApp.swift in Sources */,
 				95EE118D28886BAE00D0C12E /* ContentView.swift in Sources */,
+				95EE119C28886CF200D0C12E /* VirtualBuySellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,9 +211,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				95EE118A28886BAE00D0C12E /* Cryptocurrency.xcdatamodeld in Sources */,
+				95EE11A328886D6E00D0C12E /* CoinExchangeRatioView.swift in Sources */,
 				95EE119028886BAE00D0C12E /* Persistence.swift in Sources */,
+				95EE11A028886D3800D0C12E /* VirtualTradingView.swift in Sources */,
 				95EE118C28886BAE00D0C12E /* CryptocurrencyApp.swift in Sources */,
 				95EE118E28886BAE00D0C12E /* ContentView.swift in Sources */,
+				95EE119D28886CF200D0C12E /* VirtualBuySellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
