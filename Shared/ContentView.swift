@@ -11,14 +11,11 @@ import CoreData
 struct ContentView: View {
     var body: some View {
         TabView {
-            NavigationView {
-                Text("Hello, world!")
-                    .padding()
-            }
-            .tabItem {
-                Image(systemName: "house")
-                Text("Home")
-            }
+            HomeView()
+                .tabItem {
+                    Image(systemName: "house")
+                    Text("Home")
+                }
             
             CoinExchangeRatioView()
                 .tabItem {
