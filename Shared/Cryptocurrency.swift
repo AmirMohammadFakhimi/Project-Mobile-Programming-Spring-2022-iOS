@@ -8,7 +8,7 @@
 import Foundation
 
 struct CryptocurrencyInfo: Codable {
-    var date: Date
+    var date: String
     var open: Double
     var high: Double
     var low: Double
@@ -18,6 +18,8 @@ struct CryptocurrencyInfo: Codable {
 class Cryptocurrency: Codable {
     var symbol: String
     var name: String
+    var isFavorite: Bool = false
+    var virtualTradingAmount: Double = 0
     
     var history: [CryptocurrencyInfo]
     
