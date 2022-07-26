@@ -90,10 +90,6 @@ struct HomeView: View {
         cryptocurrencies.append(d)
         cryptocurrencies.append(e)
         cryptocurrencies.append(f)
-        
-//        favoriteCryptocurrencies.append(b)
-//        favoriteCryptocurrencies.append(c)
-//        favoriteCryptocurrencies.append(d)
     }
         
     var body: some View {
