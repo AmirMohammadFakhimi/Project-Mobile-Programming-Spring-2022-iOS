@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9514FCD228904E2700C8372D /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 9514FCD128904E2700C8372D /* SwiftUICharts */; };
 		9519642E288EAD5100AC8EA8 /* Cryptocurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9519642D288EAD5100AC8EA8 /* Cryptocurrency.swift */; };
 		9519642F288EAD5100AC8EA8 /* Cryptocurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9519642D288EAD5100AC8EA8 /* Cryptocurrency.swift */; };
 		95196431288EADB000AC8EA8 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95196430288EADAF00AC8EA8 /* HomeView.swift */; };
@@ -54,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9514FCD228904E2700C8372D /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +139,7 @@
 			);
 			name = "Cryptocurrency (iOS)";
 			packageProductDependencies = (
+				9514FCD128904E2700C8372D /* SwiftUICharts */,
 			);
 			productName = "Cryptocurrency (iOS)";
 			productReference = 95EE118028886BAE00D0C12E /* Cryptocurrency.app */;
@@ -188,6 +191,7 @@
 			mainGroup = 95EE117028886BAD00D0C12E;
 			packageReferences = (
 				957BC70E289047A700847FDA /* XCRemoteSwiftPackageReference "ChartView" */,
+				9514FCD028904E2700C8372D /* XCRemoteSwiftPackageReference "ChartView" */,
 			);
 			productRefGroup = 95EE118128886BAE00D0C12E /* Products */;
 			projectDirPath = "";
@@ -515,6 +519,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9514FCD028904E2700C8372D /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		957BC70E289047A700847FDA /* XCRemoteSwiftPackageReference "ChartView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AppPear/ChartView";
@@ -524,6 +536,14 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9514FCD128904E2700C8372D /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9514FCD028904E2700C8372D /* XCRemoteSwiftPackageReference "ChartView" */;
+			productName = SwiftUICharts;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		95EE117628886BAD00D0C12E /* Cryptocurrency.xcdatamodeld */ = {
