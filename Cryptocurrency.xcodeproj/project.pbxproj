@@ -35,6 +35,7 @@
 		9519642D288EAD5100AC8EA8 /* Cryptocurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cryptocurrency.swift; sourceTree = "<group>"; };
 		95196430288EADAF00AC8EA8 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		95196433288F0A3800AC8EA8 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
+		95C4127228904BA300784C06 /* ChartView */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ChartView; path = ../ChartView; sourceTree = "<group>"; };
 		95EE117728886BAD00D0C12E /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		95EE117828886BAD00D0C12E /* CryptocurrencyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptocurrencyApp.swift; sourceTree = "<group>"; };
 		95EE117928886BAD00D0C12E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -46,7 +47,6 @@
 		95EE119B28886CF200D0C12E /* VirtualBuySellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualBuySellView.swift; sourceTree = "<group>"; };
 		95EE119E28886D3800D0C12E /* VirtualTradingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualTradingView.swift; sourceTree = "<group>"; };
 		95EE11A128886D6E00D0C12E /* CoinExchangeRatioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinExchangeRatioView.swift; sourceTree = "<group>"; };
-		95F0162A28903DDE00B35BFA /* ChartView */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ChartView; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,10 +67,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		95A4016C288FCE52003F8673 /* Packages */ = {
+		95C4127128904BA300784C06 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				95F0162A28903DDE00B35BFA /* ChartView */,
+				95C4127228904BA300784C06 /* ChartView */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -78,7 +78,7 @@
 		95EE117028886BAD00D0C12E = {
 			isa = PBXGroup;
 			children = (
-				95A4016C288FCE52003F8673 /* Packages */,
+				95C4127128904BA300784C06 /* Packages */,
 				95EE117528886BAD00D0C12E /* Shared */,
 				95EE118728886BAE00D0C12E /* macOS */,
 				95EE118128886BAE00D0C12E /* Products */,
@@ -187,6 +187,7 @@
 			);
 			mainGroup = 95EE117028886BAD00D0C12E;
 			packageReferences = (
+				957BC70E289047A700847FDA /* XCRemoteSwiftPackageReference "ChartView" */,
 			);
 			productRefGroup = 95EE118128886BAE00D0C12E /* Products */;
 			projectDirPath = "";
@@ -512,6 +513,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		957BC70E289047A700847FDA /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCVersionGroup section */
 		95EE117628886BAD00D0C12E /* Cryptocurrency.xcdatamodeld */ = {
