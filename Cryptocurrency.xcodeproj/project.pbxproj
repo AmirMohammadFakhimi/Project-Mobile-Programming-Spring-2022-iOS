@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9514FCD228904E2700C8372D /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 9514FCD128904E2700C8372D /* SwiftUICharts */; };
 		9519642E288EAD5100AC8EA8 /* Cryptocurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9519642D288EAD5100AC8EA8 /* Cryptocurrency.swift */; };
 		9519642F288EAD5100AC8EA8 /* Cryptocurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9519642D288EAD5100AC8EA8 /* Cryptocurrency.swift */; };
 		95196431288EADB000AC8EA8 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95196430288EADAF00AC8EA8 /* HomeView.swift */; };
 		95196432288EADB000AC8EA8 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95196430288EADAF00AC8EA8 /* HomeView.swift */; };
-		95196434288F0A3800AC8EA8 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95196433288F0A3800AC8EA8 /* test.swift */; };
-		95196435288F0A3800AC8EA8 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95196433288F0A3800AC8EA8 /* test.swift */; };
+		95791E992890645B006B5E12 /* AllFavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95791E982890645B006B5E12 /* AllFavoritesView.swift */; };
+		95791E9A2890645B006B5E12 /* AllFavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95791E982890645B006B5E12 /* AllFavoritesView.swift */; };
+		95791E9C289065A5006B5E12 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95791E9B289065A5006B5E12 /* Utils.swift */; };
+		95791E9D289065A5006B5E12 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95791E9B289065A5006B5E12 /* Utils.swift */; };
+		95791EA028906EA1006B5E12 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 95791E9F28906EA1006B5E12 /* SwiftUICharts */; };
 		95EE118928886BAE00D0C12E /* Cryptocurrency.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95EE117628886BAD00D0C12E /* Cryptocurrency.xcdatamodeld */; };
 		95EE118A28886BAE00D0C12E /* Cryptocurrency.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95EE117628886BAD00D0C12E /* Cryptocurrency.xcdatamodeld */; };
 		95EE118B28886BAE00D0C12E /* CryptocurrencyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EE117828886BAD00D0C12E /* CryptocurrencyApp.swift */; };
@@ -35,7 +37,8 @@
 /* Begin PBXFileReference section */
 		9519642D288EAD5100AC8EA8 /* Cryptocurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cryptocurrency.swift; sourceTree = "<group>"; };
 		95196430288EADAF00AC8EA8 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		95196433288F0A3800AC8EA8 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
+		95791E982890645B006B5E12 /* AllFavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFavoritesView.swift; sourceTree = "<group>"; };
+		95791E9B289065A5006B5E12 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		95C4127228904BA300784C06 /* ChartView */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ChartView; path = ../ChartView; sourceTree = "<group>"; };
 		95EE117728886BAD00D0C12E /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		95EE117828886BAD00D0C12E /* CryptocurrencyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptocurrencyApp.swift; sourceTree = "<group>"; };
@@ -55,7 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9514FCD228904E2700C8372D /* SwiftUICharts in Frameworks */,
+				95791EA028906EA1006B5E12 /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +103,8 @@
 				95EE11A128886D6E00D0C12E /* CoinExchangeRatioView.swift */,
 				9519642D288EAD5100AC8EA8 /* Cryptocurrency.swift */,
 				95196430288EADAF00AC8EA8 /* HomeView.swift */,
-				95196433288F0A3800AC8EA8 /* test.swift */,
+				95791E982890645B006B5E12 /* AllFavoritesView.swift */,
+				95791E9B289065A5006B5E12 /* Utils.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -139,7 +143,7 @@
 			);
 			name = "Cryptocurrency (iOS)";
 			packageProductDependencies = (
-				9514FCD128904E2700C8372D /* SwiftUICharts */,
+				95791E9F28906EA1006B5E12 /* SwiftUICharts */,
 			);
 			productName = "Cryptocurrency (iOS)";
 			productReference = 95EE118028886BAE00D0C12E /* Cryptocurrency.app */;
@@ -192,6 +196,7 @@
 			packageReferences = (
 				957BC70E289047A700847FDA /* XCRemoteSwiftPackageReference "ChartView" */,
 				9514FCD028904E2700C8372D /* XCRemoteSwiftPackageReference "ChartView" */,
+				95791E9E28906EA1006B5E12 /* XCRemoteSwiftPackageReference "ChartView" */,
 			);
 			productRefGroup = 95EE118128886BAE00D0C12E /* Products */;
 			projectDirPath = "";
@@ -230,12 +235,13 @@
 				95196431288EADB000AC8EA8 /* HomeView.swift in Sources */,
 				95EE118928886BAE00D0C12E /* Cryptocurrency.xcdatamodeld in Sources */,
 				95EE11A228886D6E00D0C12E /* CoinExchangeRatioView.swift in Sources */,
-				95196434288F0A3800AC8EA8 /* test.swift in Sources */,
 				95EE118F28886BAE00D0C12E /* Persistence.swift in Sources */,
 				9519642E288EAD5100AC8EA8 /* Cryptocurrency.swift in Sources */,
 				95EE119F28886D3800D0C12E /* VirtualTradingView.swift in Sources */,
 				95EE118B28886BAE00D0C12E /* CryptocurrencyApp.swift in Sources */,
+				95791E9C289065A5006B5E12 /* Utils.swift in Sources */,
 				95EE118D28886BAE00D0C12E /* ContentView.swift in Sources */,
+				95791E992890645B006B5E12 /* AllFavoritesView.swift in Sources */,
 				95EE119C28886CF200D0C12E /* VirtualBuySellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,12 +253,13 @@
 				95196432288EADB000AC8EA8 /* HomeView.swift in Sources */,
 				95EE118A28886BAE00D0C12E /* Cryptocurrency.xcdatamodeld in Sources */,
 				95EE11A328886D6E00D0C12E /* CoinExchangeRatioView.swift in Sources */,
-				95196435288F0A3800AC8EA8 /* test.swift in Sources */,
 				95EE119028886BAE00D0C12E /* Persistence.swift in Sources */,
 				9519642F288EAD5100AC8EA8 /* Cryptocurrency.swift in Sources */,
 				95EE11A028886D3800D0C12E /* VirtualTradingView.swift in Sources */,
 				95EE118C28886BAE00D0C12E /* CryptocurrencyApp.swift in Sources */,
+				95791E9D289065A5006B5E12 /* Utils.swift in Sources */,
 				95EE118E28886BAE00D0C12E /* ContentView.swift in Sources */,
+				95791E9A2890645B006B5E12 /* AllFavoritesView.swift in Sources */,
 				95EE119D28886CF200D0C12E /* VirtualBuySellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -527,6 +534,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		95791E9E28906EA1006B5E12 /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		957BC70E289047A700847FDA /* XCRemoteSwiftPackageReference "ChartView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AppPear/ChartView";
@@ -538,7 +553,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		9514FCD128904E2700C8372D /* SwiftUICharts */ = {
+		95791E9F28906EA1006B5E12 /* SwiftUICharts */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9514FCD028904E2700C8372D /* XCRemoteSwiftPackageReference "ChartView" */;
 			productName = SwiftUICharts;

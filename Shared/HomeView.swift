@@ -9,9 +9,13 @@ import SwiftUI
 import Foundation
 import SwiftUICharts
 
+
 struct HomeView: View {
     @State var cryptocurrencies: [Cryptocurrency] = []
     @State var favoriteCryptocurrencies: [Cryptocurrency] = []
+    
+    @State var seeAllAlert = false
+    let favoriteCryptocurrencyError = "There isn't any favorite cryptocurrency!"
     
     func getData() {
 //        let request = NSMutableURLRequest(url: NSURL(string: "https://api.twelvedata.com/time_series?apikey=94d7377e2f454bc7b5b7a14404486b8a&technicalIndicator=ad&interval=1day&symbol=BTC/USD&dp=2&format=JSON")! as URL,
@@ -104,12 +108,20 @@ struct HomeView: View {
                         .multilineTextAlignment(.center)
                         .padding(.leading)
                     Spacer()
-                    Button {
-                        
-                    } label: {
-                        Text("See All")
+                    if (favoriteCryptocurrencies.isEmpty) {
+                        Button {
+                            seeAllAlert = true
+                        } label: {
+                            Text("See All")
+                        }
+                        .padding(.trailing)
+                        .alert(favoriteCryptocurrencyError, isPresented: $seeAllAlert) {
+                            Button("OK", role: .cancel) { }
+                        }
+                    } else {
+                        NavigationLink("See All", destination: AllFavoritesView($favoriteCryptocurrencies))
+                            .padding(.trailing)
                     }
-                    .padding(.trailing)
                 }
                 getFavoritesPart()
                     .padding(.bottom)
@@ -137,7 +149,7 @@ struct HomeView: View {
                 HStack {
                     getDefaultRectangle()
                         .overlay(
-                            Text("There isn't any favorit crypticurrency!")
+                            Text(favoriteCryptocurrencyError)
                             .font(.system(size: 16, weight: .semibold))
                             .kerning(1)
                         )
@@ -189,14 +201,6 @@ struct HomeView: View {
         }
     }
     
-    func getStarButton(cryptocurrency: Cryptocurrency, imageName: String, action: @escaping () -> Void) -> Button<AnyView> {
-        Button(action: action) {
-            AnyView(Image(systemName: imageName)
-                .foregroundColor(Color.yellow)
-            .font(.system(size: 20, weight: .bold)))
-        }
-    }
-    
     func getCryptocurrenciesPart() -> some View {
         ScrollView(showsIndicators: false) {
             ForEach(cryptocurrencies, id: \.symbol) { cryptocurrency in
@@ -244,8 +248,9 @@ struct HomeView: View {
                             doDummyOnCryptocurrencies()
                         }
                         Text(String(cryptocurrency.virtualTradingAmount))
-                            .padding(.horizontal)
+//                            .padding(.horizontal)
                             .font(.system(size: 17, weight: .semibold))
+                            .frame(width: 60)
                         getCountButton(cryptocurrency: cryptocurrency, imageName: "plus", foregroundColor: Color.red, background: Color(red: 0.36, green: 0.989, blue: 0.024)) {
                             cryptocurrency.virtualTradingAmount += 1
                             doDummyOnCryptocurrencies()
