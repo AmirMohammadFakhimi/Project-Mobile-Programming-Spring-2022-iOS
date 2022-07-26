@@ -16,6 +16,7 @@
 		95791E9C289065A5006B5E12 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95791E9B289065A5006B5E12 /* Utils.swift */; };
 		95791E9D289065A5006B5E12 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95791E9B289065A5006B5E12 /* Utils.swift */; };
 		95791EA028906EA1006B5E12 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 95791E9F28906EA1006B5E12 /* SwiftUICharts */; };
+		95791EA328907317006B5E12 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 95791EA228907317006B5E12 /* Reachability */; };
 		95EE118928886BAE00D0C12E /* Cryptocurrency.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95EE117628886BAD00D0C12E /* Cryptocurrency.xcdatamodeld */; };
 		95EE118A28886BAE00D0C12E /* Cryptocurrency.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95EE117628886BAD00D0C12E /* Cryptocurrency.xcdatamodeld */; };
 		95EE118B28886BAE00D0C12E /* CryptocurrencyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EE117828886BAD00D0C12E /* CryptocurrencyApp.swift */; };
@@ -59,6 +60,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				95791EA028906EA1006B5E12 /* SwiftUICharts in Frameworks */,
+				95791EA328907317006B5E12 /* Reachability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +146,7 @@
 			name = "Cryptocurrency (iOS)";
 			packageProductDependencies = (
 				95791E9F28906EA1006B5E12 /* SwiftUICharts */,
+				95791EA228907317006B5E12 /* Reachability */,
 			);
 			productName = "Cryptocurrency (iOS)";
 			productReference = 95EE118028886BAE00D0C12E /* Cryptocurrency.app */;
@@ -197,6 +200,7 @@
 				957BC70E289047A700847FDA /* XCRemoteSwiftPackageReference "ChartView" */,
 				9514FCD028904E2700C8372D /* XCRemoteSwiftPackageReference "ChartView" */,
 				95791E9E28906EA1006B5E12 /* XCRemoteSwiftPackageReference "ChartView" */,
+				95791EA128907317006B5E12 /* XCRemoteSwiftPackageReference "Reachability.swift" */,
 			);
 			productRefGroup = 95EE118128886BAE00D0C12E /* Products */;
 			projectDirPath = "";
@@ -542,6 +546,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		95791EA128907317006B5E12 /* XCRemoteSwiftPackageReference "Reachability.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		957BC70E289047A700847FDA /* XCRemoteSwiftPackageReference "ChartView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AppPear/ChartView";
@@ -557,6 +569,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9514FCD028904E2700C8372D /* XCRemoteSwiftPackageReference "ChartView" */;
 			productName = SwiftUICharts;
+		};
+		95791EA228907317006B5E12 /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95791EA128907317006B5E12 /* XCRemoteSwiftPackageReference "Reachability.swift" */;
+			productName = Reachability;
 		};
 /* End XCSwiftPackageProductDependency section */
 

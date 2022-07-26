@@ -8,16 +8,20 @@
 import SwiftUI
 import Foundation
 import SwiftUICharts
-
+import Reachability
 
 struct HomeView: View {
     @State var cryptocurrencies: [Cryptocurrency] = []
     @State var favoriteCryptocurrencies: [Cryptocurrency] = []
     
-    @State var seeAllAlert = false
     let favoriteCryptocurrencyError = "There isn't any favorite cryptocurrency!"
+    @State var isSyncing = false
+    @State var seeAllAlert = false
+    @State var unknownErrorAlert = false
+    @State var unavailableNetworkAlert = false
     
     func getData() {
+        isSyncing = true
 //        let request = NSMutableURLRequest(url: NSURL(string: "https://api.twelvedata.com/time_series?apikey=94d7377e2f454bc7b5b7a14404486b8a&technicalIndicator=ad&interval=1day&symbol=BTC/USD&dp=2&format=JSON")! as URL,
 //                                                cachePolicy: .useProtocolCachePolicy,
 //                                            timeoutInterval: 10.0)
@@ -42,6 +46,19 @@ struct HomeView: View {
 //        })
 //
 //        dataTask.resume()
+        
+        do {
+            let reachability = try Reachability()
+            
+            if reachability.connection == .unavailable {
+                unavailableNetworkAlert = true
+            } else {
+                
+            }
+            
+        } catch {
+            unknownErrorAlert = true
+        }
         
         var a: [CryptocurrencyInfo] = []
         a.append(CryptocurrencyInfo(date: "2022-07-25", open: 100, high: 100, low: 100, close: 100.58))
@@ -94,6 +111,8 @@ struct HomeView: View {
         cryptocurrencies.append(d)
         cryptocurrencies.append(e)
         cryptocurrencies.append(f)
+        
+        isSyncing = false
     }
         
     var body: some View {
@@ -118,6 +137,14 @@ struct HomeView: View {
                         .alert(favoriteCryptocurrencyError, isPresented: $seeAllAlert) {
                             Button("OK", role: .cancel) { }
                         }
+                        .alert("Unknown Error", isPresented: $unknownErrorAlert) {
+                            Button("OK", role: .cancel) { }
+                        } message: {
+                            Text("Please try again.")
+                        }
+                        .alert("Unavailable Network", isPresented: $unavailableNetworkAlert) {
+                            Button("OK", role: .cancel) { }
+                        }
                     } else {
                         NavigationLink("See All", destination: AllFavoritesView($favoriteCryptocurrencies))
                             .padding(.trailing)
@@ -138,7 +165,16 @@ struct HomeView: View {
                 getCryptocurrenciesPart()
             }
             .navigationTitle("Home")
-            .statusBar(hidden: true)
+            .toolbar {
+                Button {
+                    getData()
+                } label: {
+                    Image(systemName: "arrow.2.circlepath")
+                        .rotationEffect(Angle(degrees: isSyncing ? 360 : 0.0))
+                        .animation(isSyncing ? Animation.linear(duration: 2.0)
+                            .repeatForever(autoreverses: false) : .easeInOut)
+                }
+            }
         }
         .onAppear(perform: getData)
     }
