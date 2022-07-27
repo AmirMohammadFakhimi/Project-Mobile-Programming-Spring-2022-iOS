@@ -11,6 +11,7 @@ import SwiftUICharts
 import Reachability
 
 struct HomeView: View {
+    let cryptocurrenciesName = ["Bitcoin", "Theter"]
     @State var cryptocurrencies: [Cryptocurrency] = []
     @State var favoriteCryptocurrencies: [Cryptocurrency] = []
     
@@ -47,18 +48,44 @@ struct HomeView: View {
 //
 //        dataTask.resume()
         
+        
+        
+        let projectDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let directoryName = projectDirectory.appendingPathComponent("cryptocurrencies", isDirectory: true)
         do {
-            let reachability = try Reachability()
+            try FileManager.default.createDirectory(at: directoryName, withIntermediateDirectories: true)
             
-            if reachability.connection == .unavailable {
-                unavailableNetworkAlert = true
-            } else {
+//            directory unavailable
+            if isNetworkAvailable() {
+//            get data from api
                 
+//                write data in file
+//                let cryptocurrency: Cryptocurrency = Cryptocurrency(symbol: "a", name: "A", history: [])
+//                let jsonEncoder = JSONEncoder()
+//                let jsonData = try jsonEncoder.encode(cryptocurrency)
+//                let json = String(data: jsonData, encoding: String.Encoding.utf16)
+//                let cryptocurrencyDir = directoryName.appendingPathComponent("Bitcoin.txt", isDirectory: true)
+//                try json?.write(to: cryptocurrencyDir, atomically: true, encoding: String.Encoding.utf16)
+            } else {
+                try FileManager.default.removeItem(at: directoryName)
+            }
+        } catch {
+//            directory available
+            if isNetworkAvailable() {
+//            get data from api
+                
+//                let cryptocurrency: Cryptocurrency = Cryptocurrency(symbol: "a", name: "A", history: [])
+//                let jsonEncoder = JSONEncoder()
+//                let jsonData = try jsonEncoder.encode(cryptocurrency)
+//                let json = String(data: jsonData, encoding: String.Encoding.utf16)
+//                let cryptocurrencyDir = directoryName.appendingPathComponent("Bitcoin.txt", isDirectory: true)
+//                try json?.write(to: cryptocurrencyDir, atomically: true, encoding: String.Encoding.utf16)
+            } else {
+//                read data from txt and create Cryptocurrencies
             }
             
-        } catch {
-            unknownErrorAlert = true
         }
+        
         
         var a: [CryptocurrencyInfo] = []
         a.append(CryptocurrencyInfo(date: "2022-07-25", open: 100, high: 100, low: 100, close: 100.58))
@@ -113,6 +140,16 @@ struct HomeView: View {
         cryptocurrencies.append(f)
         
         isSyncing = false
+    }
+    
+    func isNetworkAvailable() -> Bool {
+        do {
+            let reachability = try Reachability()
+            return reachability.connection != .unavailable
+        } catch {
+            unknownErrorAlert = true
+            return false
+        }
     }
         
     var body: some View {
