@@ -8,32 +8,59 @@
 import SwiftUI
 
 struct CoinExchangeRatioView: View {
-    var CryptoName = ["bitcoin","tetter","dogecoin"]
+    var CryptoName = ["bitcoin","tether","doge"]
     @State var FirstCrypto = "bitcoin"
-    @State var SecondCrypto = "bitcoin"
+    @State var SecondCrypto = "tether"
     @State var amount: Int = 0
     
     var body: some View {
-        VStack {
-            Text("Exchange")
-            Picker("first crypto", selection: $FirstCrypto) {
-                ForEach(CryptoName, id: \.self) {
-                    Text($0)
+        NavigationView {
+            VStack {
+                HStack {
+                    VStack {
+                        Image(FirstCrypto)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 130, height: 130)
+                        
+                        Picker("first crypto", selection: $FirstCrypto) {
+                            ForEach(CryptoName, id: \.self) {
+                                Text($0)
+                            }
+                        }
+                    }
+                
+                    Image("arrow2")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 50, height: 50)
+                        .padding(.bottom, 40)
+                        .padding()
+                
+                    VStack {
+                        Image(SecondCrypto)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 130, height: 130)
+                        
+                        Picker("second crypto", selection: $SecondCrypto) {
+                            ForEach(CryptoName, id: \.self) {
+                                Text($0)
+                            }
+                        }
+                    }
                 }
-            }
-            Text("To")
-            Picker("second crypto", selection: $SecondCrypto) {
-                ForEach(CryptoName, id: \.self) {
-                    Text($0)
+                HStack{
+                    Text("amount:")
+                    TextField("Enter amount", value: $amount, format: .number)
+                        .textFieldStyle(.roundedBorder)
                 }
+                Text("\(amount)  \(FirstCrypto)  <->  \(amount*2)  \(SecondCrypto)")
+                
             }
-            HStack{
-                Text("amount:")
-                TextField("Enter amount", value: $amount, format: .number)
-                    .textFieldStyle(.roundedBorder)
-            }.padding()
-            Text("\(amount)  \(FirstCrypto)  <->  \(amount*2)  \(SecondCrypto)")
-        }.padding()
+            .padding()
+            .navigationTitle("Exchange Rate")
+            }
     }
 }
 
