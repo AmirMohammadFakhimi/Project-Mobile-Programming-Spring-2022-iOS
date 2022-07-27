@@ -279,7 +279,7 @@ struct HomeView: View {
             ForEach(cryptocurrencies, id: \.symbol) { cryptocurrency in
                 HStack {
                     getDefaultRectangle()
-                        .frame(width: UIScreen.main.bounds.size.width - 200, height: 70)
+                        .frame(width: UIScreen.main.bounds.size.width - 60, height: 80)
                         .padding(.all, 10.0)
                         .overlay(
                             HStack {
@@ -291,9 +291,49 @@ struct HomeView: View {
                                     Text(cryptocurrency.name)
                                         .font(.title3)
                                         .fontWeight(.bold)
-                                    Text(String(cryptocurrency.history[0].close))
+                                    Text("$" + String(cryptocurrency.history[0].close))
                                         .fontWeight(.semibold)
                                         .foregroundColor(Color.purple)
+                                }
+                                .frame(width: 100, alignment: .leading)
+                                
+                                let value = cryptocurrency.history[0].close * 100 / cryptocurrency.history[1].close - 100
+                                if (value > 0) {
+                                    HStack {
+                                        Text(String(value) + "%")
+                                            .font(.system(size: 17))
+                                            .fontWeight(.semibold)
+                                            .frame(width: 60)
+                                        .foregroundColor(Color.green)
+                                        Image(systemName: "arrow.up.right")
+                                            .foregroundColor(Color.red)
+                                            .font(.system(size: 17, weight: .bold))
+                                            .padding(.leading, 2)
+                                    }
+                                } else if (value < 0) {
+                                    HStack {
+                                        Text(String(abs(value)) + "%")
+                                            .font(.system(size: 17))
+                                            .fontWeight(.semibold)
+                                            .frame(width: 60)
+                                        .foregroundColor(Color.red)
+                                        Image(systemName: "arrow.down.right")
+                                            .foregroundColor(Color.red)
+                                            .font(.system(size: 17, weight: .bold))
+                                            .padding(.leading, 4)
+                                    }
+                                } else {
+                                    HStack {
+                                        Text(String(value) + "%")
+                                            .font(.system(size: 17))
+                                            .fontWeight(.semibold)
+                                            .frame(width: 60)
+                                        .foregroundColor(Color.yellow)
+                                        Image(systemName: "arrow.right")
+                                            .foregroundColor(Color.yellow)
+                                            .font(.system(size: 17, weight: .bold))
+                                            .padding(.leading, 4)
+                                    }
                                 }
                                 Spacer()
                                 VStack {
@@ -314,14 +354,14 @@ struct HomeView: View {
                                 .padding(.trailing, 20)
                             }
                         )
-                    Spacer()
+//                    Spacer()
+                    /*
                     HStack {
                         getCountButton(cryptocurrency: cryptocurrency, imageName: "minus", foregroundColor: Color(red: 0.36, green: 0.989, blue: 0.024), background: Color.red) {
                             cryptocurrency.virtualTradingAmount -= 1
                             doDummyOnCryptocurrencies()
                         }
                         Text(String(cryptocurrency.virtualTradingAmount))
-//                            .padding(.horizontal)
                             .font(.system(size: 17, weight: .semibold))
                             .frame(width: 60)
                         getCountButton(cryptocurrency: cryptocurrency, imageName: "plus", foregroundColor: Color.red, background: Color(red: 0.36, green: 0.989, blue: 0.024)) {
@@ -329,25 +369,26 @@ struct HomeView: View {
                             doDummyOnCryptocurrencies()
                         }
                     }
+                     */
                 }
-                .padding(.top, 5.0)
+                .padding(.top, 2)
                 .padding([.leading, .trailing], 15)
             }
         }
     }
     
-    func getCountButton(cryptocurrency: Cryptocurrency, imageName: String, foregroundColor: Color, background: Color, action: @escaping () -> Void) -> some View {
-        Button {
-            action()
-        } label: {
-            Image(systemName: imageName)
-                .foregroundColor(foregroundColor)
-                .font(.system(size: 16, weight: .bold))
-                .frame(width: 25, height: 25)
-        }
-        .background(background)
-        .cornerRadius(5)
-    }
+//    func getCountButton(cryptocurrency: Cryptocurrency, imageName: String, foregroundColor: Color, background: Color, action: @escaping () -> Void) -> some View {
+//        Button {
+//            action()
+//        } label: {
+//            Image(systemName: imageName)
+//                .foregroundColor(foregroundColor)
+//                .font(.system(size: 16, weight: .bold))
+//                .frame(width: 25, height: 25)
+//        }
+//        .background(background)
+//        .cornerRadius(5)
+//    }
     
     func doDummyOnCryptocurrencies() {
         let dummy = Cryptocurrency(symbol: "", name: "", history: [])
