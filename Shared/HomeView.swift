@@ -296,6 +296,7 @@ struct HomeView: View {
                                     .resizable()
                                     .scaledToFit()
                                     .padding()
+                                
                                 VStack(alignment: .leading) {
                                     Text(cryptocurrency.showingName)
                                         .font(.title3)

@@ -49,13 +49,13 @@ struct VirtualBuySellView: View {
                 .bold()
                 .padding(.bottom)
             
-            Text("\(String(format: "\(coin_name.uppercased()) Price: %.3f", coin_price))")
-            Text("\(String(format: "Current Amount: %.3f", coin_amount))")
+            Text("Price: $\(String(coin_price))")
+            Text("Current Amount: \(String(coin_amount))")
                 .padding(.bottom)
             
             TextField("Amount", text: $amount)
                 .multilineTextAlignment(.center)
-            Text("\(String(format: "Price: %.3f", (Double(amount) ?? 0) * coin_price))")
+            Text("Price: $\(String((Double(amount) ?? 0) * coin_price))")
             HStack {
                 Button {
                     if amount == "" {
