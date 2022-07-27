@@ -9,16 +9,26 @@ import SwiftUI
 
 struct VirtualBuySellView: View {
     
+    @Binding var coin: Cryptocurrency
+    @Binding var tether: Cryptocurrency
+ //   @Binding var coin_name: String
+ //   @Binding var coin_price: Double
+    @Binding var tether_amount: Double
+    
     @Binding var coin_name: String
     @Binding var coin_price: Double
     @Binding var coin_amount: Double
-    @Binding var tether_amount: Double
+    @Binding var coin_showing_name: String
     
-    init(coin_name: Binding<String>, coin_price: Binding<Double>, coin_amount: Binding<Double>, tether_amount: Binding<Double>) {
-        self._coin_name = coin_name
-        self._coin_price = coin_price
-        self._coin_amount = coin_amount
-        self._tether_amount = tether_amount
+    init(coin: Binding<Cryptocurrency>, tether: Binding<Cryptocurrency>) {
+        self._coin = coin
+        self._tether = tether
+        
+        self._coin_name = coin.name
+        self._coin_price = coin.history[0].close
+        self._coin_amount = coin.amount
+        self._coin_showing_name = coin.showingName
+        self._tether_amount = tether.amount
     }
     
     @State private var amount = ""
@@ -35,7 +45,7 @@ struct VirtualBuySellView: View {
                 .scaledToFit()
                 .frame(width: 150, height: 150)
             
-            Text(coin_name.uppercased())
+            Text(coin_showing_name)
                 .bold()
                 .padding(.bottom)
             

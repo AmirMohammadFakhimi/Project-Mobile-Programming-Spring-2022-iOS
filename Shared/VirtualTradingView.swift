@@ -13,26 +13,62 @@ struct VirtualTradingView: View {
     @Binding var unknownErrorAlert: Bool
     @Binding var isSyncing: Bool
     
-    @State var tether_name = "tether"
-    @State var bitcoin_name = "bitcoin"
-    @State var etherium_name = "etherium"
-    @State var binance_name = "binance"
-    @State var doge_name = "doge"
-    
-    @State var current_tether_amount = 5000.0
-    @State var current_bitcoin_amount = 0.0
-    @State var current_etherium_amount = 0.0
-    @State var current_binance_amount = 0.0
-    @State var current_doge_amount = 0.0
-
-    @State var current_tether_price = 1.0
-    @State var current_bitcoin_price = 20000.0
-    @State var current_etherium_price = 2000.0
-    @State var current_binance_price = 200.0
-    @State var current_doge_price = 0.08
-    
     func get_total_money() -> Double {
-        return current_tether_price * current_tether_amount + current_bitcoin_price * current_bitcoin_amount + current_etherium_price * current_etherium_amount + current_binance_price * current_binance_amount + current_doge_price * current_doge_amount
+        var sum = 0.0
+        for cryptocurrency in cryptocurrencies {
+            sum += cryptocurrency.amount * cryptocurrency.history[0].close
+        }
+        return sum
+    }
+    
+    func show_tether_bar (cryptocurrency: Cryptocurrency) -> some View {
+        return HStack {
+            Image(cryptocurrency.name)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 70, height: 70)
+                .padding(.trailing)
+            VStack(alignment: .leading) {
+                Text(cryptocurrency.showingName)
+                    .bold()
+                Text("\(String(format: "Current Amount: %.3f", cryptocurrency.amount))")
+                Text("\(String(format: "Current Price: %.3f$", cryptocurrency.history[0].close))")
+            }
+        }
+        .padding(.top, 5)
+        .padding(.bottom, 5)
+    }
+    
+    func show_coin_bar (cryptocurrency: Cryptocurrency) -> some View {
+        var i = 0
+        for iterated_cryptocurrency in cryptocurrencies {
+            if iterated_cryptocurrency.symbol == cryptocurrency.symbol {
+                break
+            }
+            i = i + 1
+        }
+        
+        return HStack {
+            Image(cryptocurrency.name)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 70, height: 70)
+                .padding(.trailing)
+            VStack {
+                NavigationLink {
+                    VirtualBuySellView(coin: $cryptocurrencies[i], tether: $cryptocurrencies[0])
+                } label: {
+                    VStack(alignment: .leading) {
+                        Text(cryptocurrency.showingName)
+                            .bold()
+                        Text("\(String(format: "Current Amount: %.3f", cryptocurrency.amount))")
+                        Text("\(String(format: "Current Price: %.3f$", cryptocurrency.history[0].close))")
+                    }
+                }
+            }
+        }
+        .padding(.top, 5)
+        .padding(.bottom, 5)
     }
     
     var body: some View {
@@ -40,27 +76,12 @@ struct VirtualTradingView: View {
             VStack {
                 List {
                     ForEach(cryptocurrencies, id: \.symbol) { cryptocurrency in
-                        HStack {
-                            Image(cryptocurrency.name)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 70, height: 70)
-                                .padding(.trailing)
-                            VStack {
-                                NavigationLink {
-                           //         VirtualBuySellView(coin_name: cryptocurrency.name, coin_price: cryptocurrency.history[0].close, coin_amount: $current_tether_amount, tether_amount: $current_tether_amount)
-                                } label: {
-                                    VStack(alignment: .leading) {
-                                        Text(cryptocurrency.showingName)
-                                            .bold()
-                                        Text("\(String(format: "Current Amount: %.3f", current_tether_amount))")
-                                        Text("\(String(format: "Current Price: %.3f$", cryptocurrency.history[0].close))")
-                                    }
-                                }
-                            }
+                        if cryptocurrency.name == "tether" {
+                            show_tether_bar(cryptocurrency: cryptocurrency)
                         }
-                        .padding(.top, 5)
-                        .padding(.bottom, 5)
+                        else {
+                            show_coin_bar(cryptocurrency: cryptocurrency)
+                        }
                     }
  /*                   HStack {
                         Image("tether")

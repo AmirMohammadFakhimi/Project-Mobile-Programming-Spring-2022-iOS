@@ -130,12 +130,18 @@ struct HomeView: View {
         a2.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
         
         
-        let b = Cryptocurrency(symbol: "A", name: "bitcoin", history: a, showingName: "Bitcoin (BTC)")
-        let c = Cryptocurrency(symbol: "B", name: "binance", history: a2, showingName: "Binance (BNB)")
-        let d = Cryptocurrency(symbol: "C", name: "doge", history: a, showingName: "Doge (DOGE)")
-        let e = Cryptocurrency(symbol: "D", name: "tether", history: a, showingName: "Tether (USDT)")
+        var a3: [CryptocurrencyInfo] = []
+        a3.append(CryptocurrencyInfo(date: "2022-07-24", open: 1, high: 1, low: 1, close: 1))
+        a3.append(CryptocurrencyInfo(date: "2022-07-24", open: 1, high: 1, low: 1, close: 1))
+        a3.append(CryptocurrencyInfo(date: "2022-07-24", open: 1, high: 1, low: 1, close: 1))
+        
+        let b = Cryptocurrency(symbol: "A", name: "tether", history: a3, showingName: "Tether (USDT)")
+        let c = Cryptocurrency(symbol: "B", name: "bitcoin", history: a, showingName: "Bitcoin (BTC)")
+        let d = Cryptocurrency(symbol: "C", name: "binance", history: a2, showingName: "Binance (BNB)")
+        let e = Cryptocurrency(symbol: "D", name: "doge", history: a, showingName: "Doge (DOGE)")
         let f = Cryptocurrency(symbol: "E", name: "etherium", history: a, showingName: "Etherium (ETH)")
         
+        cryptocurrencies = []
         cryptocurrencies.append(b)
         cryptocurrencies.append(c)
         cryptocurrencies.append(d)
