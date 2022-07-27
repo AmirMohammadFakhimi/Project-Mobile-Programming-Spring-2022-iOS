@@ -9,6 +9,10 @@ import SwiftUI
 
 
 struct VirtualTradingView: View {
+    @Binding var cryptocurrencies: [Cryptocurrency]
+    @Binding var unknownErrorAlert: Bool
+    @Binding var isSyncing: Bool
+    
     @State var tether_name = "tether"
     @State var bitcoin_name = "bitcoin"
     @State var etherium_name = "etherium"
@@ -35,7 +39,30 @@ struct VirtualTradingView: View {
         NavigationView {
             VStack {
                 List {
-                    HStack {
+                    ForEach(cryptocurrencies, id: \.symbol) { cryptocurrency in
+                        HStack {
+                            Image(cryptocurrency.name)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 70, height: 70)
+                                .padding(.trailing)
+                            VStack {
+                                NavigationLink {
+                           //         VirtualBuySellView(coin_name: cryptocurrency.name, coin_price: cryptocurrency.history[0].close, coin_amount: $current_tether_amount, tether_amount: $current_tether_amount)
+                                } label: {
+                                    VStack(alignment: .leading) {
+                                        Text(cryptocurrency.showingName)
+                                            .bold()
+                                        Text("\(String(format: "Current Amount: %.3f", current_tether_amount))")
+                                        Text("\(String(format: "Current Price: %.3f$", cryptocurrency.history[0].close))")
+                                    }
+                                }
+                            }
+                        }
+                        .padding(.top, 5)
+                        .padding(.bottom, 5)
+                    }
+ /*                   HStack {
                         Image("tether")
                             .resizable()
                             .scaledToFit()
@@ -133,7 +160,7 @@ struct VirtualTradingView: View {
                         }
                     }
                     .padding(.top, 5)
-                    .padding(.bottom, 5)
+                    .padding(.bottom, 5)*/
                 .navigationTitle("Virtual Trading")
                 }
                 
@@ -159,9 +186,10 @@ struct VirtualTradingView: View {
         }
     }
 }
-
+/*
 struct VirtualTradingView_Previews: PreviewProvider {
     static var previews: some View {
         VirtualTradingView()
     }
 }
+*/

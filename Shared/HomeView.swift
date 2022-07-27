@@ -11,18 +11,21 @@ import SwiftUICharts
 import Reachability
 
 struct HomeView: View {
-    let cryptocurrenciesName = ["Bitcoin", "Theter"]
-    @State var cryptocurrencies: [Cryptocurrency] = []
+    @Binding var cryptocurrencies: [Cryptocurrency]
+    @Binding var unknownErrorAlert: Bool
+    @Binding var isSyncing: Bool
+    
+    
     @State var favoriteCryptocurrencies: [Cryptocurrency] = []
     
     let favoriteCryptocurrencyError = "There isn't any favorite cryptocurrency!"
-    @State var isSyncing = false
+
     @State var seeAllAlert = false
-    @State var unknownErrorAlert = false
     @State var unavailableNetworkAlert = false
     
     func getData() {
         isSyncing = true
+        
 //        let request = NSMutableURLRequest(url: NSURL(string: "https://api.twelvedata.com/time_series?apikey=94d7377e2f454bc7b5b7a14404486b8a&technicalIndicator=ad&interval=1day&symbol=BTC/USD&dp=2&format=JSON")! as URL,
 //                                                cachePolicy: .useProtocolCachePolicy,
 //                                            timeoutInterval: 10.0)
@@ -127,11 +130,11 @@ struct HomeView: View {
         a2.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
         
         
-        let b = Cryptocurrency(symbol: "A", name: "bitcoin", history: a)
-        let c = Cryptocurrency(symbol: "B", name: "binance", history: a2)
-        let d = Cryptocurrency(symbol: "C", name: "doge", history: a)
-        let e = Cryptocurrency(symbol: "D", name: "dollar", history: a)
-        let f = Cryptocurrency(symbol: "E", name: "etherium", history: a)
+        let b = Cryptocurrency(symbol: "A", name: "bitcoin", history: a, showingName: "Bitcoin (BTC)")
+        let c = Cryptocurrency(symbol: "B", name: "binance", history: a2, showingName: "Binance (BNB)")
+        let d = Cryptocurrency(symbol: "C", name: "doge", history: a, showingName: "Doge (DOGE)")
+        let e = Cryptocurrency(symbol: "D", name: "tether", history: a, showingName: "Tether (USDT)")
+        let f = Cryptocurrency(symbol: "E", name: "etherium", history: a, showingName: "Etherium (ETH)")
         
         cryptocurrencies.append(b)
         cryptocurrencies.append(c)
@@ -288,7 +291,7 @@ struct HomeView: View {
                                     .scaledToFit()
                                     .padding()
                                 VStack(alignment: .leading) {
-                                    Text(cryptocurrency.name)
+                                    Text(cryptocurrency.showingName)
                                         .font(.title3)
                                         .fontWeight(.bold)
                                     Text("$" + String(cryptocurrency.history[0].close))
@@ -391,14 +394,15 @@ struct HomeView: View {
 //    }
     
     func doDummyOnCryptocurrencies() {
-        let dummy = Cryptocurrency(symbol: "", name: "", history: [])
+        let dummy = Cryptocurrency(symbol: "", name: "", history: [], showingName: "")
         cryptocurrencies.append(dummy)
         cryptocurrencies.removeLast()
     }
 }
-
+/*
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
     }
 }
+*/

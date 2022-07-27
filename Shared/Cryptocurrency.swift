@@ -18,14 +18,16 @@ struct CryptocurrencyInfo: Codable {
 class Cryptocurrency: Codable {
     var symbol: String
     var name: String
+    var showingName: String
     var isFavorite: Bool = false
     var virtualTradingAmount: Double = 0
     
     var history: [CryptocurrencyInfo]
     
-    init(symbol: String, name: String, history: [CryptocurrencyInfo]) {
+    init(symbol: String, name: String, history: [CryptocurrencyInfo], showingName: String) {
         self.symbol = symbol
         self.name = name
         self.history = history
+        self.showingName = showingName
     }
 }
