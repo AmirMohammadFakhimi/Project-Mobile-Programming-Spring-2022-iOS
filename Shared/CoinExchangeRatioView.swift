@@ -11,11 +11,20 @@ struct CoinExchangeRatioView: View {
     var CryptoName = ["bitcoin","tether","doge"]
     @State var FirstCrypto = "bitcoin"
     @State var SecondCrypto = "tether"
-    @State var amount: Int = 0
+    @State var amount: Double = 0.0
     
     var body: some View {
         NavigationView {
             VStack {
+                VStack{
+                    Text("Enter the Amount:")
+                    TextField("Enter amount", value: $amount, format: .number)
+                        .textFieldStyle(.roundedBorder)
+                }
+                .padding(.bottom, 70)
+                .padding(.leading, 50)
+                .padding(.trailing, 50)
+                
                 HStack {
                     VStack {
                         Image(FirstCrypto)
@@ -28,6 +37,9 @@ struct CoinExchangeRatioView: View {
                                 Text($0)
                             }
                         }
+                        Text("\(String(amount))")
+                            .font(.system(size: 25))
+                            .fontWeight(.bold)
                     }
                 
                     Image("arrow2")
@@ -48,17 +60,12 @@ struct CoinExchangeRatioView: View {
                                 Text($0)
                             }
                         }
+                        Text("\(String(amount*2))")
+                            .font(.system(size: 25))
+                            .fontWeight(.bold)
                     }
                 }
-                HStack{
-                    Text("amount:")
-                    TextField("Enter amount", value: $amount, format: .number)
-                        .textFieldStyle(.roundedBorder)
-                }
-                Text("\(amount)  \(FirstCrypto)  <->  \(amount*2)  \(SecondCrypto)")
-                
             }
-            .padding()
             .navigationTitle("Exchange Rate")
             }
     }
