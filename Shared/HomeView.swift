@@ -245,7 +245,7 @@ struct HomeView: View {
                 HStack {
                     getDefaultRectangle()
                         .overlay(
-                            Text(favoriteCryptocurrencyError)
+                            Text("There isn't any favorite cryptocurrency!")
                             .font(.system(size: 16, weight: .semibold))
                             .kerning(1)
                         )

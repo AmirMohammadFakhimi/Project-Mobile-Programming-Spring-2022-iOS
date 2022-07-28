@@ -45,6 +45,7 @@ struct VirtualTradingView: View {
             VStack(alignment: .leading) {
                 Text(cryptocurrency.showingName)
                     .bold()
+                
                 Text("Current Amount: \(format_double(value: cryptocurrency.amount))")
                 Text("Current Price: $\(format_double(value: cryptocurrency.history[0].close))")
             }
@@ -76,7 +77,7 @@ struct VirtualTradingView: View {
                         Text(cryptocurrency.showingName)
                             .bold()
                         Text("Current Amount: \(format_double(value: cryptocurrency.amount))")
-                        Text("Current Price: $\(format_double(value: cryptocurrency.history[0].close))")
+                        Text("Current Price: \("$" + format_double(value: cryptocurrency.history[0].close))")
                     }
                 }
             }
@@ -107,7 +108,7 @@ struct VirtualTradingView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 50, height: 50)
-                    Text("Current Money: $\(format_double(value: get_total_money()))")
+                    Text("Current Money: \("$" + format_double(value: get_total_money()))")
                         .bold()
                         .italic()
                         .foregroundColor(.black)

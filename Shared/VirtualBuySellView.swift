@@ -52,6 +52,8 @@ struct VirtualBuySellView: View {
     @State private var showing_alert_sell_success = false
     @State private var showing_alert_enter_amount = false
     
+//    let current_amount_text: LocalizedStringKey = "Current Amount"
+    
     var body: some View {
         VStack(alignment: .center) {
             Image(coin_name)
@@ -63,13 +65,13 @@ struct VirtualBuySellView: View {
                 .bold()
                 .padding(.bottom)
             
-            Text("Price: $\(format_double(value: coin_price))")
+            Text("Price: \("$" + format_double(value: coin_price))")
             Text("Current Amount: \(format_double(value: coin_amount))")
                 .padding(.bottom)
             
             TextField("Amount", text: $amount)
                 .multilineTextAlignment(.center)
-            Text("Price: $\(format_double(value: (Double(amount) ?? 0) * coin_price))")
+            Text("Price: \("$" + format_double(value: (Double(amount) ?? 0) * coin_price))")
             HStack {
                 Button {
                     if amount == "" {
