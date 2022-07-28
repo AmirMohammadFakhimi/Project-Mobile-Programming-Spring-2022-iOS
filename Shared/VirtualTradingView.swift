@@ -21,6 +21,20 @@ struct VirtualTradingView: View {
         return sum
     }
     
+    func format_double(value: Double) -> String {
+        var formattedValue = String(format: "%.5f", value)
+
+        while formattedValue.last == "0" {
+            formattedValue.removeLast()
+        }
+
+        if formattedValue.last == "." {
+            formattedValue.removeLast()
+        }
+
+        return formattedValue
+    }
+    
     func show_tether_bar (cryptocurrency: Cryptocurrency) -> some View {
         return HStack {
             Image(cryptocurrency.name)
@@ -31,8 +45,8 @@ struct VirtualTradingView: View {
             VStack(alignment: .leading) {
                 Text(cryptocurrency.showingName)
                     .bold()
-                Text("Current Amount: \(String(cryptocurrency.amount))")
-                Text("Current Price: $\(String(cryptocurrency.history[0].close))")
+                Text("Current Amount: \(format_double(value: cryptocurrency.amount))")
+                Text("Current Price: $\(format_double(value: cryptocurrency.history[0].close))")
             }
         }
         .padding(.top, 5)
@@ -61,8 +75,8 @@ struct VirtualTradingView: View {
                     VStack(alignment: .leading) {
                         Text(cryptocurrency.showingName)
                             .bold()
-                        Text("Current Amount: \(String(cryptocurrency.amount))")
-                        Text("Current Price: $\(String(cryptocurrency.history[0].close))")
+                        Text("Current Amount: \(format_double(value: cryptocurrency.amount))")
+                        Text("Current Price: $\(format_double(value: cryptocurrency.history[0].close))")
                     }
                 }
             }
@@ -83,105 +97,6 @@ struct VirtualTradingView: View {
                             show_coin_bar(cryptocurrency: cryptocurrency)
                         }
                     }
- /*                   HStack {
-                        Image("tether")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 70, height: 70)
-                            .padding(.trailing)
-                        VStack(alignment: .leading) {
-                            Text("Tether (USDT)")
-                                .bold()
-                            Text("\(String(format: "Current Amount: %.1f", current_tether_amount))")
-                            Text("\(String(format: "Current Price: %.0f$", current_tether_price))")
-                        }
-                    }
-                    .padding(.top, 5)
-                    .padding(.bottom, 5)
-                    HStack {
-                        Image("bitcoin")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 70, height: 70)
-                            .padding(.trailing)
-                        VStack {
-                            NavigationLink {
-                                VirtualBuySellView(coin_name: $bitcoin_name, coin_price: $current_bitcoin_price, coin_amount: $current_bitcoin_amount, tether_amount: $current_tether_amount)
-                            } label: {
-                                VStack(alignment: .leading) {
-                                    Text("Bitcoin (BTC)")
-                                        .bold()
-                                    Text("\(String(format: "Current Amount: %.3f", current_bitcoin_amount))")
-                                    Text("\(String(format: "Current Price: %.1f$", current_bitcoin_price))")
-                                }
-                            }
-                        }
-                    }
-                    .padding(.top, 5)
-                    .padding(.bottom, 5)
-                    HStack {
-                        Image("etherium")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 70, height: 70)
-                            .padding(.trailing)
-                        VStack {
-                            NavigationLink {
-                                VirtualBuySellView(coin_name: $etherium_name, coin_price: $current_etherium_price, coin_amount: $current_etherium_amount, tether_amount: $current_tether_amount)
-                            } label: {
-                                VStack(alignment: .leading) {
-                                    Text("Etherium (ETH)")
-                                        .bold()
-                                    Text("\(String(format: "Current Amount: %.3f", current_etherium_amount))")
-                                    Text("\(String(format: "Current Price: %.1f$", current_etherium_price))")
-                                }
-                            }
-                        }
-                    }
-                    .padding(.top, 5)
-                    .padding(.bottom, 5)
-                    HStack {
-                        Image("binance")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 70, height: 70)
-                            .padding(.trailing)
-                        VStack {
-                            NavigationLink {
-                                VirtualBuySellView(coin_name: $binance_name, coin_price: $current_binance_price, coin_amount: $current_binance_amount, tether_amount: $current_tether_amount)
-                            } label: {
-                                VStack(alignment: .leading) {
-                                    Text("Binance (BNB)")
-                                        .bold()
-                                    Text("\(String(format: "Current Amount: %.3f", current_binance_amount))")
-                                    Text("\(String(format: "Current Price: %.1f$", current_binance_price))")
-                                }
-                            }
-                        }
-                    }
-                    .padding(.top, 5)
-                    .padding(.bottom, 5)
-                    HStack {
-                        Image("doge")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 70, height: 70)
-                            .padding(.trailing)
-                        VStack {
-                            NavigationLink {
-                                VirtualBuySellView(coin_name: $doge_name, coin_price: $current_doge_price, coin_amount: $current_doge_amount, tether_amount: $current_tether_amount)
-                            } label: {
-                                VStack(alignment: .leading) {
-                                    Text("Dogecoin (DOGE)")
-                                        .bold()
-                                    Text("\(String(format: "Current Amount: %.3f", current_doge_amount))")
-                                    Text("\(String(format: "Current Price: %.3f$", current_doge_price))")
-                                }
-                            }
-                        }
-                    }
-                    .padding(.top, 5)
-                    .padding(.bottom, 5)*/
                 .navigationTitle("Virtual Trading")
                 }
                 
@@ -192,7 +107,7 @@ struct VirtualTradingView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 50, height: 50)
-                    Text("Current Money: $\(String(get_total_money()))")
+                    Text("Current Money: $\(format_double(value: get_total_money()))")
                         .bold()
                         .italic()
                         .foregroundColor(.black)
@@ -207,10 +122,3 @@ struct VirtualTradingView: View {
         }
     }
 }
-/*
-struct VirtualTradingView_Previews: PreviewProvider {
-    static var previews: some View {
-        VirtualTradingView()
-    }
-}
-*/

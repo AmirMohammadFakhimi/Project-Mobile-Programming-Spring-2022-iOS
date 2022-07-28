@@ -160,7 +160,7 @@ struct ContentView: View {
                     Text("Home")
                 }
             
-            CoinExchangeRatioView()
+            CoinExchangeRatioView(cryptocurrencies: $cryptocurrencies, unknownErrorAlert: $unknownErrorAlert, isSyncing: $isSyncing)
                 .tabItem {
                     Image(systemName: "arrow.2.squarepath")
                          Text("Exchange Rate")

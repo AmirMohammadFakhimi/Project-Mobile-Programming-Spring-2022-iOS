@@ -23,6 +23,20 @@ struct HomeView: View {
     @State var seeAllAlert = false
     @State var unavailableNetworkAlert = false
     
+    func format_double(value: Double) -> String {
+        var formattedValue = String(format: "%.5f", value)
+
+        while formattedValue.last == "0" {
+            formattedValue.removeLast()
+        }
+
+        if formattedValue.last == "." {
+            formattedValue.removeLast()
+        }
+
+        return formattedValue
+    }
+    
     func getData() {
         isSyncing = true
         
@@ -301,7 +315,7 @@ struct HomeView: View {
                                     Text(cryptocurrency.showingName)
                                         .font(.title3)
                                         .fontWeight(.bold)
-                                    Text("$" + String(cryptocurrency.history[0].close))
+                                    Text("$" + format_double(value: cryptocurrency.history[0].close))
                                         .fontWeight(.semibold)
                                         .foregroundColor(Color.purple)
                                 }

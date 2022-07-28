@@ -31,6 +31,20 @@ struct VirtualBuySellView: View {
         self._tether_amount = tether.amount
     }
     
+    func format_double(value: Double) -> String {
+        var formattedValue = String(format: "%.5f", value)
+
+        while formattedValue.last == "0" {
+            formattedValue.removeLast()
+        }
+
+        if formattedValue.last == "." {
+            formattedValue.removeLast()
+        }
+
+        return formattedValue
+    }
+    
     @State private var amount = ""
     @State private var showing_alert_enough_money = false
     @State private var showing_alert_enough_coin = false
@@ -49,13 +63,13 @@ struct VirtualBuySellView: View {
                 .bold()
                 .padding(.bottom)
             
-            Text("Price: $\(String(coin_price))")
-            Text("Current Amount: \(String(coin_amount))")
+            Text("Price: $\(format_double(value: coin_price))")
+            Text("Current Amount: \(format_double(value: coin_amount))")
                 .padding(.bottom)
             
             TextField("Amount", text: $amount)
                 .multilineTextAlignment(.center)
-            Text("Price: $\(String((Double(amount) ?? 0) * coin_price))")
+            Text("Price: $\(format_double(value: (Double(amount) ?? 0) * coin_price))")
             HStack {
                 Button {
                     if amount == "" {
