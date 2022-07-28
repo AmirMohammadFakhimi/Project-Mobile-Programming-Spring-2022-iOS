@@ -89,58 +89,47 @@ struct ContentView: View {
             }
             
         }
+    
+        var tet_history: [CryptocurrencyInfo] = []
+        tet_history.append(CryptocurrencyInfo(date: "2022-07-24", open: 1, high: 1, low: 1, close: 1))
+        tet_history.append(CryptocurrencyInfo(date: "2022-07-24", open: 1, high: 1, low: 1, close: 1))
+        tet_history.append(CryptocurrencyInfo(date: "2022-07-24", open: 1, high: 1, low: 1, close: 1))
+        
+        var btc_history: [CryptocurrencyInfo] = []
+        btc_history.append(CryptocurrencyInfo(date: "2022-07-28", open: 22931, high: 22931, low: 22931, close: 22931.23))
+        btc_history.append(CryptocurrencyInfo(date: "2022-07-27", open: 22949.6, high: 22949.6, low: 22949.6, close: 22949.6))
+        btc_history.append(CryptocurrencyInfo(date: "2022-07-26", open: 21222, high: 21222, low: 21222, close: 21222))
+        btc_history.append(CryptocurrencyInfo(date: "2022-07-25", open: 21310.2, high: 21310.2, low: 21310.2, close: 21310.2))
+        btc_history.append(CryptocurrencyInfo(date: "2022-07-24", open: 22604.4, high: 22604.4, low: 22604.4, close: 22604.4))
+        btc_history.append(CryptocurrencyInfo(date: "2022-07-23", open: 23450.6, high: 23450.6, low: 23450.6, close: 23450.6))
+        btc_history.append(CryptocurrencyInfo(date: "2022-07-22", open: 22687.6, high: 22687.6, low: 22687.6, close: 22687.6))
         
         
-        var a: [CryptocurrencyInfo] = []
-        a.append(CryptocurrencyInfo(date: "2022-07-25", open: 100, high: 100, low: 100, close: 100.58))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 200))
-        a.append(CryptocurrencyInfo(date: "2022-07-23", open: 200, high: 100, low: 100, close: 300))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
+        var bnb_history: [CryptocurrencyInfo] = []
+        bnb_history.append(CryptocurrencyInfo(date: "2022-07-28", open: 267.59, high: 267.59, low: 267.59, close: 267.59))
+        bnb_history.append(CryptocurrencyInfo(date: "2022-07-27", open: 271.72, high: 271.72, low: 271.72, close: 271.72))
+        bnb_history.append(CryptocurrencyInfo(date: "2022-07-26", open: 248.75, high: 248.75, low: 248.75, close: 248.75))
+        bnb_history.append(CryptocurrencyInfo(date: "2022-07-25", open: 246.06, high: 246.06, low: 246.06, close: 246.06))
+        bnb_history.append(CryptocurrencyInfo(date: "2022-07-24", open: 261.58, high: 261.58, low: 261.58, close: 261.58))
         
-        var a2: [CryptocurrencyInfo] = []
-        a2.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a2.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
+        var doge_history: [CryptocurrencyInfo] = []
+        doge_history.append(CryptocurrencyInfo(date: "2022-07-28", open: 0.067, high: 0.067, low: 0.067, close: 0.067))
+        doge_history.append(CryptocurrencyInfo(date: "2022-07-27", open: 0.066, high: 0.066, low: 0.066, close: 0.066))
+        doge_history.append(CryptocurrencyInfo(date: "2022-07-26", open: 0.066, high: 0.066, low: 0.066, close: 0.066))
+        doge_history.append(CryptocurrencyInfo(date: "2022-07-25", open: 0.067, high: 0.067, low: 0.067, close: 0.067))
         
-        var a3: [CryptocurrencyInfo] = []
+        var eth_history: [CryptocurrencyInfo] = []
+        eth_history.append(CryptocurrencyInfo(date: "2022-07-28", open: 1643.14, high: 1643.14, low: 1643.14, close: 1643.14))
+        eth_history.append(CryptocurrencyInfo(date: "2022-07-27", open: 1628.49, high: 1628.49, low: 1628.49, close: 1628.49))
+        eth_history.append(CryptocurrencyInfo(date: "2022-07-26", open: 1615.30, high: 1615.30, low: 1615.30, close: 1615.30))
+        eth_history.append(CryptocurrencyInfo(date: "2022-07-25", open: 1620.40, high: 1620.40, low: 1620.40, close: 1620.40))
         
-        a3.append(CryptocurrencyInfo(date: "2022-07-24", open: 1, high: 1, low: 1, close: 1))
-        a3.append(CryptocurrencyInfo(date: "2022-07-24", open: 1, high: 1, low: 1, close: 1))
-        a3.append(CryptocurrencyInfo(date: "2022-07-24", open: 1, high: 1, low: 1, close: 1))
         
-        let b = Cryptocurrency(symbol: "A", name: "tether", history: a3, showingName: "Tether (USDT)")
-        let c = Cryptocurrency(symbol: "B", name: "bitcoin", history: a, showingName: "Bitcoin (BTC)")
-        let d = Cryptocurrency(symbol: "C", name: "binance", history: a2, showingName: "Binance (BNB)")
-        let e = Cryptocurrency(symbol: "D", name: "doge", history: a, showingName: "Doge (DOGE)")
-        let f = Cryptocurrency(symbol: "E", name: "etherium", history: a, showingName: "Etherium (ETH)")
+        let b = Cryptocurrency(symbol: "A", name: "tether", history: tet_history, showingName: "Tether (USDT)")
+        let c = Cryptocurrency(symbol: "B", name: "bitcoin", history: btc_history, showingName: "Bitcoin (BTC)")
+        let d = Cryptocurrency(symbol: "C", name: "binance", history: bnb_history, showingName: "Binance (BNB)")
+        let e = Cryptocurrency(symbol: "D", name: "doge", history: doge_history, showingName: "Doge (DOGE)")
+        let f = Cryptocurrency(symbol: "E", name: "etherium", history: eth_history, showingName: "Etherium (ETH)")
         
         cryptocurrencies = []
         cryptocurrencies.append(b)

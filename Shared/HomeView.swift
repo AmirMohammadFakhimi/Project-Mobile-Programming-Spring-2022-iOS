@@ -24,7 +24,7 @@ struct HomeView: View {
     @State var unavailableNetworkAlert = false
     
     func format_double(value: Double) -> String {
-        var formattedValue = String(format: "%.5f", value)
+        var formattedValue = String(format: "%.3f", value)
 
         while formattedValue.last == "0" {
             formattedValue.removeLast()
@@ -35,6 +35,29 @@ struct HomeView: View {
         }
 
         return formattedValue
+    }
+    
+    func get_without_abbr(showing_name: String) -> String {
+        var result = showing_name
+        
+        while result.last != " " {
+            result.removeLast()
+        }
+        result.removeLast()
+        
+        return result
+    }
+    
+    func get_abbr(showing_name: String) -> String {
+        var result = showing_name
+        
+        while result.first != "(" {
+            result.removeFirst()
+        }
+        result.removeFirst()
+        result.removeLast()
+        
+        return result
     }
     
     func getData() {
@@ -103,57 +126,46 @@ struct HomeView: View {
             
         }
         
+        var tet_history: [CryptocurrencyInfo] = []
+        tet_history.append(CryptocurrencyInfo(date: "2022-07-24", open: 1, high: 1, low: 1, close: 1))
+        tet_history.append(CryptocurrencyInfo(date: "2022-07-24", open: 1, high: 1, low: 1, close: 1))
+        tet_history.append(CryptocurrencyInfo(date: "2022-07-24", open: 1, high: 1, low: 1, close: 1))
         
-        var a: [CryptocurrencyInfo] = []
-        a.append(CryptocurrencyInfo(date: "2022-07-25", open: 100, high: 100, low: 100, close: 100.58))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 200))
-        a.append(CryptocurrencyInfo(date: "2022-07-23", open: 200, high: 100, low: 100, close: 300))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        
-        var a2: [CryptocurrencyInfo] = []
-        a2.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
-        a2.append(CryptocurrencyInfo(date: "2022-07-24", open: 200, high: 100, low: 100, close: 400))
+        var btc_history: [CryptocurrencyInfo] = []
+        btc_history.append(CryptocurrencyInfo(date: "2022-07-28", open: 22931, high: 22931, low: 22931, close: 22931.23))
+        btc_history.append(CryptocurrencyInfo(date: "2022-07-27", open: 22949.6, high: 22949.6, low: 22949.6, close: 22949.6))
+        btc_history.append(CryptocurrencyInfo(date: "2022-07-26", open: 21222, high: 21222, low: 21222, close: 21222))
+        btc_history.append(CryptocurrencyInfo(date: "2022-07-25", open: 21310.2, high: 21310.2, low: 21310.2, close: 21310.2))
+        btc_history.append(CryptocurrencyInfo(date: "2022-07-24", open: 22604.4, high: 22604.4, low: 22604.4, close: 22604.4))
+        btc_history.append(CryptocurrencyInfo(date: "2022-07-23", open: 23450.6, high: 23450.6, low: 23450.6, close: 23450.6))
+        btc_history.append(CryptocurrencyInfo(date: "2022-07-22", open: 22687.6, high: 22687.6, low: 22687.6, close: 22687.6))
         
         
-        var a3: [CryptocurrencyInfo] = []
-        a3.append(CryptocurrencyInfo(date: "2022-07-24", open: 1, high: 1, low: 1, close: 1))
-        a3.append(CryptocurrencyInfo(date: "2022-07-24", open: 1, high: 1, low: 1, close: 1))
-        a3.append(CryptocurrencyInfo(date: "2022-07-24", open: 1, high: 1, low: 1, close: 1))
+        var bnb_history: [CryptocurrencyInfo] = []
+        bnb_history.append(CryptocurrencyInfo(date: "2022-07-28", open: 267.59, high: 267.59, low: 267.59, close: 267.59))
+        bnb_history.append(CryptocurrencyInfo(date: "2022-07-27", open: 271.72, high: 271.72, low: 271.72, close: 271.72))
+        bnb_history.append(CryptocurrencyInfo(date: "2022-07-26", open: 248.75, high: 248.75, low: 248.75, close: 248.75))
+        bnb_history.append(CryptocurrencyInfo(date: "2022-07-25", open: 246.06, high: 246.06, low: 246.06, close: 246.06))
+        bnb_history.append(CryptocurrencyInfo(date: "2022-07-24", open: 261.58, high: 261.58, low: 261.58, close: 261.58))
         
-        let b = Cryptocurrency(symbol: "A", name: "tether", history: a3, showingName: "Tether (USDT)")
-        let c = Cryptocurrency(symbol: "B", name: "bitcoin", history: a, showingName: "Bitcoin (BTC)")
-        let d = Cryptocurrency(symbol: "C", name: "binance", history: a2, showingName: "Binance (BNB)")
-        let e = Cryptocurrency(symbol: "D", name: "doge", history: a, showingName: "Doge (DOGE)")
-        let f = Cryptocurrency(symbol: "E", name: "etherium", history: a, showingName: "Etherium (ETH)")
+        var doge_history: [CryptocurrencyInfo] = []
+        doge_history.append(CryptocurrencyInfo(date: "2022-07-28", open: 0.067, high: 0.067, low: 0.067, close: 0.067))
+        doge_history.append(CryptocurrencyInfo(date: "2022-07-27", open: 0.066, high: 0.066, low: 0.066, close: 0.066))
+        doge_history.append(CryptocurrencyInfo(date: "2022-07-26", open: 0.066, high: 0.066, low: 0.066, close: 0.066))
+        doge_history.append(CryptocurrencyInfo(date: "2022-07-25", open: 0.067, high: 0.067, low: 0.067, close: 0.067))
+        
+        var eth_history: [CryptocurrencyInfo] = []
+        eth_history.append(CryptocurrencyInfo(date: "2022-07-28", open: 1643.14, high: 1643.14, low: 1643.14, close: 1643.14))
+        eth_history.append(CryptocurrencyInfo(date: "2022-07-27", open: 1628.49, high: 1628.49, low: 1628.49, close: 1628.49))
+        eth_history.append(CryptocurrencyInfo(date: "2022-07-26", open: 1615.30, high: 1615.30, low: 1615.30, close: 1615.30))
+        eth_history.append(CryptocurrencyInfo(date: "2022-07-25", open: 1620.40, high: 1620.40, low: 1620.40, close: 1620.40))
+        
+        
+        let b = Cryptocurrency(symbol: "A", name: "tether", history: tet_history, showingName: "Tether (USDT)")
+        let c = Cryptocurrency(symbol: "B", name: "bitcoin", history: btc_history, showingName: "Bitcoin (BTC)")
+        let d = Cryptocurrency(symbol: "C", name: "binance", history: bnb_history, showingName: "Binance (BNB)")
+        let e = Cryptocurrency(symbol: "D", name: "doge", history: doge_history, showingName: "Doge (DOGE)")
+        let f = Cryptocurrency(symbol: "E", name: "etherium", history: eth_history, showingName: "Etherium (ETH)")
         
         cryptocurrencies = []
         cryptocurrencies.append(b)
@@ -305,54 +317,66 @@ struct HomeView: View {
                     Image(cryptocurrency.name)
                         .resizable()
                         .scaledToFit()
-                        .padding()
+                        .frame(width: 70, height: 70)
+                        .padding(.trailing, 10)
                     
-                    VStack(alignment: .leading) {
-                        Text(cryptocurrency.showingName)
-                            .font(.title3)
-                            .fontWeight(.bold)
+                    VStack() {
+                        Text(get_without_abbr(showing_name: cryptocurrency.showingName))
+                            .font(.system(size: 21, weight: .bold))
+                            .frame(width: 90, alignment: .center)
+                        Text(get_abbr(showing_name: cryptocurrency.showingName))
+                            .font(.system(size: 15))
+                            .fontWeight(.semibold)
+                            .frame(width: 90, alignment: .center)
+                            .foregroundColor(.gray)
+                    }
+                    .frame(width: 90, alignment: .leading)
+                    
+                    Spacer()
+                    
+                    VStack {
                         Text("$" + format_double(value: cryptocurrency.history[0].close))
                             .fontWeight(.semibold)
-                            .foregroundColor(Color.purple)
-                    }
-                    .frame(width: 100, alignment: .leading)
-                    
-                    let value = cryptocurrency.history[0].close * 100 / cryptocurrency.history[1].close - 100
-                    if (value > 0) {
-                        HStack {
-                            Text(String(value) + "%")
-                                .font(.system(size: 17))
-                                .fontWeight(.semibold)
-                                .frame(width: 60)
-                            .foregroundColor(Color.green)
-                            Image(systemName: "arrow.up.right")
+                            .foregroundColor(Color.black)
+                        //    .frame(width: 50, alignment: .leading)
+                        
+                        let value = cryptocurrency.history[0].close * 100 / cryptocurrency.history[1].close - 100
+                        if (value > 0) {
+                            HStack {
+                                Text(format_double(value: value) + "%")
+                                    .font(.system(size: 17))
+                                    .fontWeight(.semibold)
+                              //      .frame(width: 60)
+                                .foregroundColor(Color.green)
+                                Image(systemName: "arrow.up.circle.fill")
+                                    .foregroundColor(Color.green)
+                                    .font(.system(size: 17, weight: .bold))
+                            //        .padding(.leading, 2)
+                            }
+                        } else if (value < 0) {
+                            HStack {
+                                Text(format_double(value: abs(value)) + "%")
+                                    .font(.system(size: 17))
+                                    .fontWeight(.semibold)
+                             //       .frame(width: 60)
                                 .foregroundColor(Color.red)
-                                .font(.system(size: 17, weight: .bold))
-                                .padding(.leading, 2)
-                        }
-                    } else if (value < 0) {
-                        HStack {
-                            Text(String(abs(value)) + "%")
-                                .font(.system(size: 17))
-                                .fontWeight(.semibold)
-                                .frame(width: 60)
-                            .foregroundColor(Color.red)
-                            Image(systemName: "arrow.down.right")
-                                .foregroundColor(Color.red)
-                                .font(.system(size: 17, weight: .bold))
-                                .padding(.leading, 4)
-                        }
-                    } else {
-                        HStack {
-                            Text(String(value) + "%")
-                                .font(.system(size: 17))
-                                .fontWeight(.semibold)
-                                .frame(width: 60)
-                            .foregroundColor(Color.yellow)
-                            Image(systemName: "arrow.right")
+                                Image(systemName: "arrow.down.circle.fill")
+                                    .foregroundColor(Color.red)
+                                    .font(.system(size: 17, weight: .bold))
+                               //     .padding(.leading, 4)
+                            }
+                        } else {
+                            HStack {
+                                Text(format_double(value: value) + "%")
+                                    .font(.system(size: 17))
+                                    .fontWeight(.semibold)
+                          //          .frame(width: 60)
                                 .foregroundColor(Color.yellow)
-                                .font(.system(size: 17, weight: .bold))
-                                .padding(.leading, 4)
+                                Image(systemName: "arrow.forward.circle.fill")
+                                    .foregroundColor(Color.yellow)
+                                    .font(.system(size: 17, weight: .bold))
+                          //          .padding(.leading, 4)
+                            }
                         }
                     }
                     Spacer()
@@ -371,7 +395,7 @@ struct HomeView: View {
                             }
                         }
                     }
-                    .padding(.trailing, 20)
+                  //  .padding(.trailing, 20)
                 }
             }
 //                    Spacer()

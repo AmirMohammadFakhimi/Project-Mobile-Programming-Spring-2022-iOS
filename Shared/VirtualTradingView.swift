@@ -47,7 +47,7 @@ struct VirtualTradingView: View {
                     .bold()
                 
                 Text("Current Amount: \(format_double(value: cryptocurrency.amount))")
-                Text("Current Price: $\(format_double(value: cryptocurrency.history[0].close))")
+                Text("Current Price: \("$" + format_double(value: cryptocurrency.history[0].close))")
             }
         }
         .padding(.top, 5)
