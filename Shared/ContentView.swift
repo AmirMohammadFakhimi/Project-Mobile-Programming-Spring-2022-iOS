@@ -179,6 +179,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-         //   .environment(\.locale, Locale.init(identifier:"fa"))
+        ContentView()
+            .environment(\.locale, Locale.init(identifier:"fa"))
     }
 }

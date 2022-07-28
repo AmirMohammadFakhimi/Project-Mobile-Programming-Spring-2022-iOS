@@ -298,86 +298,82 @@ struct HomeView: View {
     }
     
     func getCryptocurrenciesPart() -> some View {
-        ScrollView(showsIndicators: false) {
+        List {
             ForEach(cryptocurrencies, id: \.symbol) { cryptocurrency in
+                
                 HStack {
-                    getDefaultRectangle()
-                        .frame(width: UIScreen.main.bounds.size.width - 60, height: 80)
-                        .padding(.all, 10.0)
-                        .overlay(
-                            HStack {
-                                Image(cryptocurrency.name)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .padding()
-                                
-                                VStack(alignment: .leading) {
-                                    Text(cryptocurrency.showingName)
-                                        .font(.title3)
-                                        .fontWeight(.bold)
-                                    Text("$" + format_double(value: cryptocurrency.history[0].close))
-                                        .fontWeight(.semibold)
-                                        .foregroundColor(Color.purple)
-                                }
-                                .frame(width: 100, alignment: .leading)
-                                
-                                let value = cryptocurrency.history[0].close * 100 / cryptocurrency.history[1].close - 100
-                                if (value > 0) {
-                                    HStack {
-                                        Text(String(value) + "%")
-                                            .font(.system(size: 17))
-                                            .fontWeight(.semibold)
-                                            .frame(width: 60)
-                                        .foregroundColor(Color.green)
-                                        Image(systemName: "arrow.up.right")
-                                            .foregroundColor(Color.red)
-                                            .font(.system(size: 17, weight: .bold))
-                                            .padding(.leading, 2)
-                                    }
-                                } else if (value < 0) {
-                                    HStack {
-                                        Text(String(abs(value)) + "%")
-                                            .font(.system(size: 17))
-                                            .fontWeight(.semibold)
-                                            .frame(width: 60)
-                                        .foregroundColor(Color.red)
-                                        Image(systemName: "arrow.down.right")
-                                            .foregroundColor(Color.red)
-                                            .font(.system(size: 17, weight: .bold))
-                                            .padding(.leading, 4)
-                                    }
-                                } else {
-                                    HStack {
-                                        Text(String(value) + "%")
-                                            .font(.system(size: 17))
-                                            .fontWeight(.semibold)
-                                            .frame(width: 60)
-                                        .foregroundColor(Color.yellow)
-                                        Image(systemName: "arrow.right")
-                                            .foregroundColor(Color.yellow)
-                                            .font(.system(size: 17, weight: .bold))
-                                            .padding(.leading, 4)
-                                    }
-                                }
-                                Spacer()
-                                VStack {
-                                    if cryptocurrency.isFavorite {
-                                        getStarButton(cryptocurrency: cryptocurrency, imageName: "star.fill") {
-                                            cryptocurrency.isFavorite = false
-                                            removeFromFavoriteCryptocarrencies(cryptocurrency)
-                                            doDummyOnCryptocurrencies()
-                                        }
-                                    } else {
-                                        getStarButton(cryptocurrency: cryptocurrency, imageName: "star") {
-                                            cryptocurrency.isFavorite = true
-                                            favoriteCryptocurrencies.append(cryptocurrency)
-                                            doDummyOnCryptocurrencies()
-                                        }
-                                    }
-                                }
-                                .padding(.trailing, 20)
+                    Image(cryptocurrency.name)
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
+                    
+                    VStack(alignment: .leading) {
+                        Text(cryptocurrency.showingName)
+                            .font(.title3)
+                            .fontWeight(.bold)
+                        Text("$" + format_double(value: cryptocurrency.history[0].close))
+                            .fontWeight(.semibold)
+                            .foregroundColor(Color.purple)
+                    }
+                    .frame(width: 100, alignment: .leading)
+                    
+                    let value = cryptocurrency.history[0].close * 100 / cryptocurrency.history[1].close - 100
+                    if (value > 0) {
+                        HStack {
+                            Text(String(value) + "%")
+                                .font(.system(size: 17))
+                                .fontWeight(.semibold)
+                                .frame(width: 60)
+                            .foregroundColor(Color.green)
+                            Image(systemName: "arrow.up.right")
+                                .foregroundColor(Color.red)
+                                .font(.system(size: 17, weight: .bold))
+                                .padding(.leading, 2)
+                        }
+                    } else if (value < 0) {
+                        HStack {
+                            Text(String(abs(value)) + "%")
+                                .font(.system(size: 17))
+                                .fontWeight(.semibold)
+                                .frame(width: 60)
+                            .foregroundColor(Color.red)
+                            Image(systemName: "arrow.down.right")
+                                .foregroundColor(Color.red)
+                                .font(.system(size: 17, weight: .bold))
+                                .padding(.leading, 4)
+                        }
+                    } else {
+                        HStack {
+                            Text(String(value) + "%")
+                                .font(.system(size: 17))
+                                .fontWeight(.semibold)
+                                .frame(width: 60)
+                            .foregroundColor(Color.yellow)
+                            Image(systemName: "arrow.right")
+                                .foregroundColor(Color.yellow)
+                                .font(.system(size: 17, weight: .bold))
+                                .padding(.leading, 4)
+                        }
+                    }
+                    Spacer()
+                    VStack {
+                        if cryptocurrency.isFavorite {
+                            getStarButton(cryptocurrency: cryptocurrency, imageName: "star.fill") {
+                                cryptocurrency.isFavorite = false
+                                removeFromFavoriteCryptocarrencies(cryptocurrency)
+                                doDummyOnCryptocurrencies()
                             }
-                        )
+                        } else {
+                            getStarButton(cryptocurrency: cryptocurrency, imageName: "star") {
+                                cryptocurrency.isFavorite = true
+                                favoriteCryptocurrencies.append(cryptocurrency)
+                                doDummyOnCryptocurrencies()
+                            }
+                        }
+                    }
+                    .padding(.trailing, 20)
+                }
+            }
 //                    Spacer()
                     /*
                     HStack {
@@ -394,10 +390,6 @@ struct HomeView: View {
                         }
                     }
                      */
-                }
-                .padding(.top, 2)
-                .padding([.leading, .trailing], 15)
-            }
         }
     }
     
