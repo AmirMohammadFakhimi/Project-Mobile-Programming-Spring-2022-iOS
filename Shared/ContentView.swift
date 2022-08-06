@@ -12,84 +12,99 @@ import SwiftUICharts
 import Reachability
 
 struct ContentView: View {
+    let abbreviations = ["BTC", "BNB", "DOGE", "XRP"].sorted()
+    
     @State var cryptocurrencies: [Cryptocurrency] = []
     @State var isSyncing = false
     @State var unknownErrorAlert = false
     
-    func isNetworkAvailable() -> Bool {
-        do {
-            let reachability = try Reachability()
-            return reachability.connection != .unavailable
-        } catch {
-            unknownErrorAlert = true
-            return false
+    var body: some View {
+        TabView {
+            HomeView(abbreviations: abbreviations, cryptocurrencies: $cryptocurrencies, unknownErrorAlert: $unknownErrorAlert, isSyncing: $isSyncing/*, getData: getData*/)
+                .tabItem {
+                    Image(systemName: "house")
+                    Text("Home")
+                }
+            
+            CoinExchangeRatioView(cryptocurrencies: $cryptocurrencies, unknownErrorAlert: $unknownErrorAlert, isSyncing: $isSyncing)
+                .tabItem {
+                    Image(systemName: "arrow.2.squarepath")
+                         Text("Exchange Rate")
+                }
+            
+            VirtualTradingView(cryptocurrencies: $cryptocurrencies, unknownErrorAlert: $unknownErrorAlert, isSyncing: $isSyncing)
+                .tabItem {
+                    Image(systemName: "chart.line.uptrend.xyaxis")
+                         Text("Virtual Trading")
+                }
+
         }
     }
     
     func getData() {
-//        let request = NSMutableURLRequest(url: NSURL(string: "https://api.twelvedata.com/time_series?apikey=94d7377e2f454bc7b5b7a14404486b8a&technicalIndicator=ad&interval=1day&symbol=BTC/USD&dp=2&format=JSON")! as URL,
-//                                                cachePolicy: .useProtocolCachePolicy,
-//                                            timeoutInterval: 10.0)
-//        request.httpMethod = "GET"
+    //        let request = NSMutableURLRequest(url: NSURL(string: "https://api.twelvedata.com/time_series?apikey=94d7377e2f454bc7b5b7a14404486b8a&technicalIndicator=ad&interval=1day&symbol=BTC/USD&dp=2&format=JSON")! as URL,
+    //                                                cachePolicy: .useProtocolCachePolicy,
+    //                                            timeoutInterval: 10.0)
+    //        request.httpMethod = "GET"
+    //
+    //        let session = URLSession.shared
+    //        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+    //            if (error != nil) {
+    //                print(error)
+    //            } else {
+    //                let httpResponse = response as? HTTPURLResponse
+    ////                print(httpResponse)
+    //
+    //                do {
+    //                    let temp: Cryptocurrency = try JSONDecoder().decode(Cryptocurrency.self, from: data!)
+    //
+    //                    cryptocurrencies.append(temp)
+    //                } catch {
+    //
+    //                }
+    //            }
+    //        })
+    //
+    //        dataTask.resume()
+        
+        
+        
+//        let projectDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+//        let directoryName = projectDirectory.appendingPathComponent("cryptocurrencies", isDirectory: true)
+//        do {
+//            try FileManager.default.createDirectory(at: directoryName, withIntermediateDirectories: true)
 //
-//        let session = URLSession.shared
-//        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-//            if (error != nil) {
-//                print(error)
+//    //            directory unavailable
+//            if isNetworkAvailable() {
+//    //            get data from api
+//
+//    //                write data in file
+//    //                let cryptocurrency: Cryptocurrency = Cryptocurrency(symbol: "a", name: "A", history: [])
+//    //                let jsonEncoder = JSONEncoder()
+//    //                let jsonData = try jsonEncoder.encode(cryptocurrency)
+//    //                let json = String(data: jsonData, encoding: String.Encoding.utf16)
+//    //                let cryptocurrencyDir = directoryName.appendingPathComponent("Bitcoin.txt", isDirectory: true)
+//    //                try json?.write(to: cryptocurrencyDir, atomically: true, encoding: String.Encoding.utf16)
 //            } else {
-//                let httpResponse = response as? HTTPURLResponse
-////                print(httpResponse)
-//
-//                do {
-//                    let temp: Cryptocurrency = try JSONDecoder().decode(Cryptocurrency.self, from: data!)
-//
-//                    cryptocurrencies.append(temp)
-//                } catch {
-//
-//                }
+//                try FileManager.default.removeItem(at: directoryName)
 //            }
-//        })
+//        } catch {
+//    //            directory available
+//            if isNetworkAvailable() {
+//    //            get data from api
 //
-//        dataTask.resume()
-        
-        
-        
-        let projectDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let directoryName = projectDirectory.appendingPathComponent("cryptocurrencies", isDirectory: true)
-        do {
-            try FileManager.default.createDirectory(at: directoryName, withIntermediateDirectories: true)
-            
-//            directory unavailable
-            if isNetworkAvailable() {
-//            get data from api
-                
-//                write data in file
-//                let cryptocurrency: Cryptocurrency = Cryptocurrency(symbol: "a", name: "A", history: [])
-//                let jsonEncoder = JSONEncoder()
-//                let jsonData = try jsonEncoder.encode(cryptocurrency)
-//                let json = String(data: jsonData, encoding: String.Encoding.utf16)
-//                let cryptocurrencyDir = directoryName.appendingPathComponent("Bitcoin.txt", isDirectory: true)
-//                try json?.write(to: cryptocurrencyDir, atomically: true, encoding: String.Encoding.utf16)
-            } else {
-                try FileManager.default.removeItem(at: directoryName)
-            }
-        } catch {
-//            directory available
-            if isNetworkAvailable() {
-//            get data from api
-                
-//                let cryptocurrency: Cryptocurrency = Cryptocurrency(symbol: "a", name: "A", history: [])
-//                let jsonEncoder = JSONEncoder()
-//                let jsonData = try jsonEncoder.encode(cryptocurrency)
-//                let json = String(data: jsonData, encoding: String.Encoding.utf16)
-//                let cryptocurrencyDir = directoryName.appendingPathComponent("Bitcoin.txt", isDirectory: true)
-//                try json?.write(to: cryptocurrencyDir, atomically: true, encoding: String.Encoding.utf16)
-            } else {
-//                read data from txt and create Cryptocurrencies
-            }
-            
-        }
-    
+//    //                let cryptocurrency: Cryptocurrency = Cryptocurrency(symbol: "a", name: "A", history: [])
+//    //                let jsonEncoder = JSONEncoder()
+//    //                let jsonData = try jsonEncoder.encode(cryptocurrency)
+//    //                let json = String(data: jsonData, encoding: String.Encoding.utf16)
+//    //                let cryptocurrencyDir = directoryName.appendingPathComponent("Bitcoin.txt", isDirectory: true)
+//    //                try json?.write(to: cryptocurrencyDir, atomically: true, encoding: String.Encoding.utf16)
+//            } else {
+//    //                read data from txt and create Cryptocurrencies
+//            }
+//
+//        }
+
         var tet_history: [CryptocurrencyInfo] = []
         tet_history.append(CryptocurrencyInfo(date: "2022-07-24", open: 1, high: 1, low: 1, close: 1))
         tet_history.append(CryptocurrencyInfo(date: "2022-07-24", open: 1, high: 1, low: 1, close: 1))
@@ -125,42 +140,29 @@ struct ContentView: View {
         eth_history.append(CryptocurrencyInfo(date: "2022-07-25", open: 1620.40, high: 1620.40, low: 1620.40, close: 1620.40))
         
         
-        let b = Cryptocurrency(symbol: "A", name: "tether", history: tet_history, showingName: "Tether (USDT)")
-        let c = Cryptocurrency(symbol: "B", name: "bitcoin", history: btc_history, showingName: "Bitcoin (BTC)")
-        let d = Cryptocurrency(symbol: "C", name: "binance", history: bnb_history, showingName: "Binance (BNB)")
-        let e = Cryptocurrency(symbol: "D", name: "doge", history: doge_history, showingName: "Doge (DOGE)")
-        let f = Cryptocurrency(symbol: "E", name: "etherium", history: eth_history, showingName: "Etherium (ETH)")
+//        let b = Cryptocurrency(symbol: "A", name: "tether", history: tet_history, showingName: "Tether (USDT)")
+//        let c = Cryptocurrency(symbol: "B", name: "bitcoin", history: btc_history, showingName: "Bitcoin (BTC)")
+//        let d = Cryptocurrency(symbol: "C", name: "binance", history: bnb_history, showingName: "Binance (BNB)")
+//        let e = Cryptocurrency(symbol: "D", name: "doge", history: doge_history, showingName: "Doge (DOGE)")
+//        let f = Cryptocurrency(symbol: "E", name: "etherium", history: eth_history, showingName: "Etherium (ETH)")
         
-        cryptocurrencies = []
-        cryptocurrencies.append(b)
-        cryptocurrencies.append(c)
-        cryptocurrencies.append(d)
-        cryptocurrencies.append(e)
-        cryptocurrencies.append(f)
+//        cryptocurrencies = []
+//        cryptocurrencies.append(b)
+//        cryptocurrencies.append(c)
+//        cryptocurrencies.append(d)
+//        cryptocurrencies.append(e)
+//        cryptocurrencies.append(f)
         
         isSyncing = false
     }
-    
-    var body: some View {
-        TabView {
-            HomeView(cryptocurrencies: $cryptocurrencies, unknownErrorAlert: $unknownErrorAlert, isSyncing: $isSyncing)
-                .tabItem {
-                    Image(systemName: "house")
-                    Text("Home")
-                }
-            
-            CoinExchangeRatioView(cryptocurrencies: $cryptocurrencies, unknownErrorAlert: $unknownErrorAlert, isSyncing: $isSyncing)
-                .tabItem {
-                    Image(systemName: "arrow.2.squarepath")
-                         Text("Exchange Rate")
-                }
-            
-            VirtualTradingView(cryptocurrencies: $cryptocurrencies, unknownErrorAlert: $unknownErrorAlert, isSyncing: $isSyncing)
-                .tabItem {
-                    Image(systemName: "chart.line.uptrend.xyaxis")
-                         Text("Virtual Trading")
-                }
 
+    func isNetworkAvailable() -> Bool {
+        do {
+            let reachability = try Reachability()
+            return reachability.connection != .unavailable
+        } catch {
+            unknownErrorAlert = true
+            return false
         }
     }
 }
@@ -168,7 +170,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-        ContentView()
-            .environment(\.locale, Locale.init(identifier:"fa"))
+//        ContentView()
+//            .environment(\.locale, Locale.init(identifier:"fa"))
     }
 }

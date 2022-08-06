@@ -16,15 +16,7 @@ struct CoinExchangeRatioView: View {
     @State var FirstCrypto = "bitcoin"
     @State var SecondCrypto = "tether"
     @State var amount: Double = 0.0
-  
-    /*
-    init(cryptocurrencies: Binding<[Cryptocurrency]>, unknownErrorAlert: Binding<Bool>, isSyncing: Binding<Bool>) {
-        self._cryptocurrencies = cryptocurrencies
-        self._unknownErrorAlert = unknownErrorAlert
-        self._isSyncing = isSyncing
-    }
-    */
-    
+      
     func format_double(value: Double) -> String {
         var formattedValue = String(format: "%.5f", value)
 
@@ -42,7 +34,7 @@ struct CoinExchangeRatioView: View {
     func get_price(cryptoName: String) -> Double {
         for cryptocurrency in cryptocurrencies {
             if cryptocurrency.name == cryptoName {
-                return cryptocurrency.history[0].close
+                return cryptocurrency.price
             }
         }
         return 0.0
@@ -105,11 +97,3 @@ struct CoinExchangeRatioView: View {
             }
     }
 }
-/*
-struct CoinExchangeRatioView_Previews: PreviewProvider {
-    static var previews: some View {
-        CoinExchangeRatioView()
-            .previewInterfaceOrientation(.portrait)
-    }
-}
-*/
