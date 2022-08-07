@@ -59,12 +59,4 @@ class Cryptocurrency: Codable {
             self.amount = 0.0
         }
     }
-    
-    init(abbreviation: String) {
-        self.abbreviation = abbreviation
-        self.name = ""
-        self.price = -1
-        self.history = []
-        amount = -1;
-    }
 }

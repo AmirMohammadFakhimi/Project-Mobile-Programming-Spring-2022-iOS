@@ -16,7 +16,6 @@ struct HomeView: View {
     @Binding var cryptocurrencies: [Cryptocurrency]
     @Binding var unknownErrorAlert: Bool
     @Binding var isSyncing: Bool
-//    var getData: () -> Void
     
     @State var favoriteCryptocurrencies: [Cryptocurrency] = []
     
@@ -170,7 +169,10 @@ struct HomeView: View {
     
     func getCryptocurrenciesPart() -> some View {
         ScrollView {
-            ForEach(cryptocurrencies, id: \.abbreviation) { cryptocurrency in
+            PullToRefresh(coordinateSpaceName: "") {
+                getData()
+            }
+            ForEach(cryptocurrencies.filter{ $0.name != "" }, id: \.abbreviation) { cryptocurrency in
                 getDefaultRectangle()
                     .frame(width: UIScreen.main.bounds.size.width - 30, height: 80)
                     .overlay(
@@ -252,8 +254,10 @@ struct HomeView: View {
                         }
                     )
             }
-            .padding()
+            .padding(.vertical, 5)
+//            .padding(.bottom, -30)
         }
+        .coordinateSpace(name: "")
     }
     
     func doDummyOnCryptocurrencies() {
@@ -430,6 +434,42 @@ struct HomeView: View {
         } catch {
             unknownErrorAlert = true
             return false
+        }
+    }
+    
+    struct PullToRefresh: View {
+        
+        var coordinateSpaceName: String
+        var onRefresh: ()->Void
+        
+        @State var needRefresh: Bool = false
+        
+        var body: some View {
+            GeometryReader { geo in
+                if (geo.frame(in: .named(coordinateSpaceName)).maxY > 50) {
+                    Spacer()
+                        .onAppear {
+                            needRefresh = true
+                        }
+                } else if (geo.frame(in: .named(coordinateSpaceName)).maxY < 10) {
+                    Spacer()
+                        .onAppear {
+                            if needRefresh {
+                                needRefresh = false
+                                onRefresh()
+                            }
+                        }
+                }
+                HStack {
+                    Spacer()
+                    if needRefresh {
+                        ProgressView()
+                    } else {
+                        Text("⬇️")
+                    }
+                    Spacer()
+                }
+            }.padding(.top, -50)
         }
     }
 }
