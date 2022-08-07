@@ -182,7 +182,6 @@ struct HomeView: View {
                             
                             VStack(spacing: vSpacing) {
                                 Text(cryptocurrency.name)
-//                                    .frame(width: 90, alignment: .center)
                                     .fontWeight(.bold)
                                     .scaledToFit()
                                 Text(cryptocurrency.abbreviation)
@@ -244,6 +243,7 @@ struct HomeView: View {
                                     getStarButton(cryptocurrency: cryptocurrency, imageName: "star") {
                                         cryptocurrency.isFavorite = true
                                         favoriteCryptocurrencies.append(cryptocurrency)
+                                        favoriteCryptocurrencies = sortCryptocurrencyByName(favoriteCryptocurrencies)
                                         doDummyOnCryptocurrencies()
                                     }
                                 }
@@ -305,8 +305,6 @@ struct HomeView: View {
         //            }
         //
         //        }
-        
-//        hardCode()
     }
     
     func getCryptocurrencyData(_ abbreviation: String) {
@@ -349,17 +347,15 @@ struct HomeView: View {
                 
                 let meta = (json["meta"]! as? [String: String])!
                 
-//                var cryptocurrency = getCryptocurrency(abbreviation)
-//                if cryptocurrency == nil {
-//                    let _ = print(10000)
+                let cryptocurrency = getCryptocurrency(abbreviation)
+                if cryptocurrency == nil {
                     let cryptocurrency = Cryptocurrency(symbol: meta["symbol"]!, name: meta["currency_base"]!, history: history, abbreviation: abbreviation)
                     cryptocurrencies.append(cryptocurrency)
-                    cryptocurrencies = cryptocurrencies.sorted(by: { $0.name < $1.name })
-//                } else {
-//                    let _ = print(20000)
-//                    cryptocurrency!.history = history
-//                    doDummyOnCryptocurrencies()
-//                }
+                    cryptocurrencies = sortCryptocurrencyByName(cryptocurrencies)
+                } else {
+                    cryptocurrency!.history = history
+                    doDummyOnCryptocurrencies()
+                }
                 
             } else {
                 runOutOfAPICredits = true
@@ -367,6 +363,10 @@ struct HomeView: View {
         } else {
             unknownErrorAlert = true
         }
+    }
+    
+    func sortCryptocurrencyByName(_ array: [Cryptocurrency]) -> [Cryptocurrency] {
+        array.sorted(by: { $0.name < $1.name })
     }
     
     func getPriceData(_ abbreviation: String) {
