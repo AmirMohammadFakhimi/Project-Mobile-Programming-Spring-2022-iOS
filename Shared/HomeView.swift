@@ -268,8 +268,14 @@ struct HomeView: View {
     func getData() {
         isSyncing = true
         
-        for abbreviation in abbreviations {
-            getCryptocurrencyData(abbreviation)
+        if let path = Bundle.main.path(forResource: "API Keys", ofType: "plist") {
+            let keys = NSDictionary(contentsOfFile: path)!
+            
+            for abbreviation in abbreviations {
+                getCryptocurrencyData(abbreviation, (keys["twelvedataAPIKey"] as? String)!)
+            }
+        } else {
+            unknownErrorAlert = true
         }
         
         
@@ -310,8 +316,8 @@ struct HomeView: View {
         //        }
     }
     
-    func getCryptocurrencyData(_ abbreviation: String) {
-        let request = NSMutableURLRequest(url: NSURL(string: "https://api.twelvedata.com/time_series?apikey=94d7377e2f454bc7b5b7a14404486b8a&interval=1day&symbol=" + abbreviation + "/USD&dp=2&format=JSON")! as URL,
+    func getCryptocurrencyData(_ abbreviation: String, _ apiKey: String) {
+        let request = NSMutableURLRequest(url: NSURL(string: "https://api.twelvedata.com/time_series?apikey=\(apiKey)&interval=1day&symbol=\(abbreviation)/USD&dp=2&format=JSON")! as URL,
                                           cachePolicy: .useProtocolCachePolicy,
                                           timeoutInterval: 10.0)
         request.httpMethod = "GET"
@@ -325,7 +331,7 @@ struct HomeView: View {
             } else {
                 do {
                     try createCryptocurrency(abbreviation, data!)
-                    getPriceData(abbreviation)
+                    getPriceData(abbreviation, apiKey)
                 } catch {
                     unknownErrorAlert = true
                 }
@@ -372,8 +378,8 @@ struct HomeView: View {
         array.sorted(by: { $0.name < $1.name })
     }
     
-    func getPriceData(_ abbreviation: String) {
-        let request = NSMutableURLRequest(url: NSURL(string: "https://api.twelvedata.com/price?symbol=" + abbreviation + "/USD&apikey=94d7377e2f454bc7b5b7a14404486b8a&dp=2&format=JSON")! as URL,
+    func getPriceData(_ abbreviation: String, _ apiKey: String) {
+        let request = NSMutableURLRequest(url: NSURL(string: "https://api.twelvedata.com/price?symbol=\(abbreviation)/USD&apikey=\(apiKey)&dp=2&format=JSON")! as URL,
                                           cachePolicy: .useProtocolCachePolicy,
                                           timeoutInterval: 10.0)
         request.httpMethod = "GET"
