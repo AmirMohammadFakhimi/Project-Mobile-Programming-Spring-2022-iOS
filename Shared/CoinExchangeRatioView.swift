@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CoinExchangeRatioView: View {
-    let cryptocurrencies: [Cryptocurrency]
+    @Binding var cryptocurrencies: [Cryptocurrency]
     let abbreviations: [String]
     
     var cryptoName: [String] = []
@@ -17,9 +17,9 @@ struct CoinExchangeRatioView: View {
     @State var secondCrypto: String
     @State var amount: Double = 0.0
     
-    init(cryptocurrencies: [Cryptocurrency], abbreviations: [String]) {
-        self.cryptocurrencies = cryptocurrencies
+    init(cryptocurrencies: Binding<[Cryptocurrency]>, abbreviations: [String]) {
         self.abbreviations = abbreviations
+        self._cryptocurrencies = cryptocurrencies
         
         if cryptocurrencies.count != abbreviations.count {
             dataDidNotLoadAlert = true
@@ -30,7 +30,7 @@ struct CoinExchangeRatioView: View {
             dataDidNotLoadAlert = false
             
             for cryptocurrency in cryptocurrencies {
-                cryptoName.append(cryptocurrency.name)
+                cryptoName.append(cryptocurrency.name.wrappedValue)
             }
             
             _firstCrypto = State(initialValue: cryptoName[0])

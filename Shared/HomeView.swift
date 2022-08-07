@@ -255,7 +255,6 @@ struct HomeView: View {
                     )
             }
             .padding(.vertical, 5)
-//            .padding(.bottom, -30)
         }
         .coordinateSpace(name: "")
     }
@@ -438,7 +437,7 @@ struct HomeView: View {
     }
     
     struct PullToRefresh: View {
-        
+//        https://stackoverflow.com/questions/56493660/pull-down-to-refresh-data-in-swiftui
         var coordinateSpaceName: String
         var onRefresh: ()->Void
         

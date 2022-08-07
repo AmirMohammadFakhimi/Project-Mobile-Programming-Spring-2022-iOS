@@ -11,23 +11,21 @@ struct VirtualBuySellView: View {
     
     @Binding var coin: Cryptocurrency
     @Binding var tether: Cryptocurrency
- //   @Binding var coin_name: String
- //   @Binding var coin_price: Double
     @Binding var tether_amount: Double
     
     @Binding var coin_name: String
     @Binding var coin_price: Double
     @Binding var coin_amount: Double
-    @Binding var coin_showing_name: String
+    @Binding var coin_abbreviation: String
     
     init(coin: Binding<Cryptocurrency>, tether: Binding<Cryptocurrency>) {
         self._coin = coin
         self._tether = tether
         
         self._coin_name = coin.name
-        self._coin_price = coin.history[0].close
+        self._coin_price = coin.price
         self._coin_amount = coin.amount
-        self._coin_showing_name = coin.showingName
+        self._coin_abbreviation = coin.abbreviation
         self._tether_amount = tether.amount
     }
     
@@ -51,9 +49,8 @@ struct VirtualBuySellView: View {
     @State private var showing_alert_buy_success = false
     @State private var showing_alert_sell_success = false
     @State private var showing_alert_enter_amount = false
-    
-//    let current_amount_text: LocalizedStringKey = "Current Amount"
-    
+    @State private var showing_alert_fetch_data = false
+        
     var body: some View {
         VStack(alignment: .center) {
             Image(coin_name)
@@ -61,7 +58,7 @@ struct VirtualBuySellView: View {
                 .scaledToFit()
                 .frame(width: 150, height: 150)
             
-            Text(coin_showing_name)
+            Text(coin_abbreviation)
                 .bold()
                 .padding(.bottom)
             
@@ -74,7 +71,9 @@ struct VirtualBuySellView: View {
             Text("Price: \("$" + format_double(value: (Double(amount) ?? 0) * coin_price))")
             HStack {
                 Button {
-                    if amount == "" {
+                    if coin_price == 0 {
+                        showing_alert_fetch_data = true
+                    } else if amount == "" {
                         showing_alert_enter_amount = true
                     }
                     else {
@@ -104,6 +103,9 @@ struct VirtualBuySellView: View {
                     Button("OK", role: .cancel) { }
                 }
                 .alert("Please enter the amount", isPresented: $showing_alert_enter_amount) {
+                    Button("OK", role: .cancel) { }
+                }
+                .alert("Please wait until fetching data ends", isPresented: $showing_alert_fetch_data) {
                     Button("OK", role: .cancel) { }
                 }
                 

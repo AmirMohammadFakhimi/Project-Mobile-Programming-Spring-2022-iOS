@@ -16,7 +16,7 @@ struct VirtualTradingView: View {
     func get_total_money() -> Double {
         var sum = 0.0
         for cryptocurrency in cryptocurrencies {
-            sum += cryptocurrency.amount * cryptocurrency.history[0].close
+            sum += cryptocurrency.amount * cryptocurrency.price
         }
         return sum
     }
@@ -43,11 +43,11 @@ struct VirtualTradingView: View {
                 .frame(width: 70, height: 70)
                 .padding(.trailing)
             VStack(alignment: .leading) {
-                Text(cryptocurrency.showingName)
+                Text(cryptocurrency.completeName)
                     .bold()
                 
                 Text("Current Amount: \(format_double(value: cryptocurrency.amount))")
-                Text("Current Price: \("$" + format_double(value: cryptocurrency.history[0].close))")
+                Text("Current Price: \("$" + format_double(value: cryptocurrency.price))")
             }
         }
         .padding(.top, 5)
@@ -57,7 +57,7 @@ struct VirtualTradingView: View {
     func show_coin_bar (cryptocurrency: Cryptocurrency) -> some View {
         var i = 0
         for iterated_cryptocurrency in cryptocurrencies {
-            if iterated_cryptocurrency.symbol == cryptocurrency.symbol {
+            if iterated_cryptocurrency.abbreviation == cryptocurrency.abbreviation {
                 break
             }
             i = i + 1
@@ -74,10 +74,10 @@ struct VirtualTradingView: View {
                     VirtualBuySellView(coin: $cryptocurrencies[i], tether: $cryptocurrencies[0])
                 } label: {
                     VStack(alignment: .leading) {
-                        Text(cryptocurrency.showingName)
+                        Text(cryptocurrency.completeName)
                             .bold()
                         Text("Current Amount: \(format_double(value: cryptocurrency.amount))")
-                        Text("Current Price: \("$" + format_double(value: cryptocurrency.history[0].close))")
+                        Text("Current Price: \("$" + format_double(value: cryptocurrency.price))")
                     }
                 }
             }
@@ -90,7 +90,7 @@ struct VirtualTradingView: View {
         NavigationView {
             VStack {
                 List {
-                    ForEach(cryptocurrencies, id: \.symbol) { cryptocurrency in
+                    ForEach(cryptocurrencies, id: \.abbreviation) { cryptocurrency in
                         if cryptocurrency.name == "tether" {
                             show_tether_bar(cryptocurrency: cryptocurrency)
                         }
