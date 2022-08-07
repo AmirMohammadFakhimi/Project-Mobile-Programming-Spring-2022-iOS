@@ -11,10 +11,15 @@
 		9519642F288EAD5100AC8EA8 /* Cryptocurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9519642D288EAD5100AC8EA8 /* Cryptocurrency.swift */; };
 		95196431288EADB000AC8EA8 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95196430288EADAF00AC8EA8 /* HomeView.swift */; };
 		95196432288EADB000AC8EA8 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95196430288EADAF00AC8EA8 /* HomeView.swift */; };
+		952A23E7289C42BD0036D164 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 952A23E6289C42BD0036D164 /* Reachability */; };
+		952A23EC289C431A0036D164 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 952A23EB289C431A0036D164 /* Reachability */; };
+		952A23F1289C468B0036D164 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 952A23F0289C468B0036D164 /* SwiftUICharts */; };
 		95791E992890645B006B5E12 /* AllFavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95791E982890645B006B5E12 /* AllFavoritesView.swift */; };
 		95791E9A2890645B006B5E12 /* AllFavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95791E982890645B006B5E12 /* AllFavoritesView.swift */; };
 		95791E9C289065A5006B5E12 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95791E9B289065A5006B5E12 /* Utils.swift */; };
 		95791E9D289065A5006B5E12 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95791E9B289065A5006B5E12 /* Utils.swift */; };
+		957D8701289FEB7500094E0B /* API Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 957D8700289FEB7500094E0B /* API Keys.plist */; };
+		957D8702289FEB7500094E0B /* API Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 957D8700289FEB7500094E0B /* API Keys.plist */; };
 		95EE118928886BAE00D0C12E /* Cryptocurrency.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95EE117628886BAD00D0C12E /* Cryptocurrency.xcdatamodeld */; };
 		95EE118A28886BAE00D0C12E /* Cryptocurrency.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95EE117628886BAD00D0C12E /* Cryptocurrency.xcdatamodeld */; };
 		95EE118B28886BAE00D0C12E /* CryptocurrencyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EE117828886BAD00D0C12E /* CryptocurrencyApp.swift */; };
@@ -33,15 +38,15 @@
 		95EE11A328886D6E00D0C12E /* CoinExchangeRatioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EE11A128886D6E00D0C12E /* CoinExchangeRatioView.swift */; };
 		E479D0622892978100DFA303 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E479D0652892978100DFA303 /* Localizable.strings */; };
 		E479D0632892978100DFA303 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E479D0652892978100DFA303 /* Localizable.strings */; };
-		E4EB186F2891809B00A95875 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = E4EB186E2891809B00A95875 /* SwiftUICharts */; };
-		E4EB18722891813500A95875 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = E4EB18712891813500A95875 /* Reachability */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9519642D288EAD5100AC8EA8 /* Cryptocurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cryptocurrency.swift; sourceTree = "<group>"; };
 		95196430288EADAF00AC8EA8 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		952A23EE289C43660036D164 /* ChartView */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ChartView; path = ../ChartView; sourceTree = "<group>"; };
 		95791E982890645B006B5E12 /* AllFavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFavoritesView.swift; sourceTree = "<group>"; };
 		95791E9B289065A5006B5E12 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		957D8700289FEB7500094E0B /* API Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "API Keys.plist"; sourceTree = "<group>"; };
 		95EE117728886BAD00D0C12E /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		95EE117828886BAD00D0C12E /* CryptocurrencyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptocurrencyApp.swift; sourceTree = "<group>"; };
 		95EE117928886BAD00D0C12E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,7 +60,6 @@
 		95EE11A128886D6E00D0C12E /* CoinExchangeRatioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinExchangeRatioView.swift; sourceTree = "<group>"; };
 		E479D0642892978100DFA303 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E479D066289297BB00DFA303 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
-		E4EB186C2891802200A95875 /* ChartView */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ChartView; path = ../../../../../../Downloads/ChartView; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,8 +67,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4EB186F2891809B00A95875 /* SwiftUICharts in Frameworks */,
-				E4EB18722891813500A95875 /* Reachability in Frameworks */,
+				952A23E7289C42BD0036D164 /* Reachability in Frameworks */,
+				952A23F1289C468B0036D164 /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,16 +76,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				952A23EC289C431A0036D164 /* Reachability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		95C4127128904BA300784C06 /* Packages */ = {
+		952A23E8289C42FC0036D164 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				E4EB186C2891802200A95875 /* ChartView */,
+				952A23EE289C43660036D164 /* ChartView */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -89,7 +94,7 @@
 		95EE117028886BAD00D0C12E = {
 			isa = PBXGroup;
 			children = (
-				95C4127128904BA300784C06 /* Packages */,
+				952A23E8289C42FC0036D164 /* Packages */,
 				95EE117528886BAD00D0C12E /* Shared */,
 				95EE118728886BAE00D0C12E /* macOS */,
 				95EE118128886BAE00D0C12E /* Products */,
@@ -112,6 +117,7 @@
 				95196430288EADAF00AC8EA8 /* HomeView.swift */,
 				95791E982890645B006B5E12 /* AllFavoritesView.swift */,
 				95791E9B289065A5006B5E12 /* Utils.swift */,
+				957D8700289FEB7500094E0B /* API Keys.plist */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -150,8 +156,8 @@
 			);
 			name = "Cryptocurrency (iOS)";
 			packageProductDependencies = (
-				E4EB186E2891809B00A95875 /* SwiftUICharts */,
-				E4EB18712891813500A95875 /* Reachability */,
+				952A23E6289C42BD0036D164 /* Reachability */,
+				952A23F0289C468B0036D164 /* SwiftUICharts */,
 			);
 			productName = "Cryptocurrency (iOS)";
 			productReference = 95EE118028886BAE00D0C12E /* Cryptocurrency.app */;
@@ -170,6 +176,9 @@
 			dependencies = (
 			);
 			name = "Cryptocurrency (macOS)";
+			packageProductDependencies = (
+				952A23EB289C431A0036D164 /* Reachability */,
+			);
 			productName = "Cryptocurrency (macOS)";
 			productReference = 95EE118628886BAE00D0C12E /* Cryptocurrency.app */;
 			productType = "com.apple.product-type.application";
@@ -203,12 +212,9 @@
 			);
 			mainGroup = 95EE117028886BAD00D0C12E;
 			packageReferences = (
-				957BC70E289047A700847FDA /* XCRemoteSwiftPackageReference "ChartView" */,
-				9514FCD028904E2700C8372D /* XCRemoteSwiftPackageReference "ChartView" */,
-				95791E9E28906EA1006B5E12 /* XCRemoteSwiftPackageReference "ChartView" */,
-				95791EA128907317006B5E12 /* XCRemoteSwiftPackageReference "Reachability.swift" */,
-				E4EB186D2891809B00A95875 /* XCRemoteSwiftPackageReference "ChartView" */,
-				E4EB18702891813500A95875 /* XCRemoteSwiftPackageReference "Reachability" */,
+				952A23E5289C42BD0036D164 /* XCRemoteSwiftPackageReference "Reachability.swift" */,
+				952A23EA289C431A0036D164 /* XCRemoteSwiftPackageReference "Reachability.swift" */,
+				952A23EF289C468B0036D164 /* XCRemoteSwiftPackageReference "ChartView" */,
 			);
 			productRefGroup = 95EE118128886BAE00D0C12E /* Products */;
 			projectDirPath = "";
@@ -225,6 +231,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				957D8701289FEB7500094E0B /* API Keys.plist in Resources */,
 				95EE119128886BAE00D0C12E /* Assets.xcassets in Resources */,
 				E479D0622892978100DFA303 /* Localizable.strings in Resources */,
 			);
@@ -234,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				957D8702289FEB7500094E0B /* API Keys.plist in Resources */,
 				95EE119228886BAE00D0C12E /* Assets.xcassets in Resources */,
 				E479D0632892978100DFA303 /* Localizable.strings in Resources */,
 			);
@@ -554,23 +562,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		9514FCD028904E2700C8372D /* XCRemoteSwiftPackageReference "ChartView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AppPear/ChartView";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-		95791E9E28906EA1006B5E12 /* XCRemoteSwiftPackageReference "ChartView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AppPear/ChartView";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-		95791EA128907317006B5E12 /* XCRemoteSwiftPackageReference "Reachability.swift" */ = {
+		952A23E5289C42BD0036D164 /* XCRemoteSwiftPackageReference "Reachability.swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ashleymills/Reachability.swift.git";
 			requirement = {
@@ -578,25 +570,17 @@
 				kind = branch;
 			};
 		};
-		957BC70E289047A700847FDA /* XCRemoteSwiftPackageReference "ChartView" */ = {
+		952A23EA289C431A0036D164 /* XCRemoteSwiftPackageReference "Reachability.swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AppPear/ChartView";
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.5;
+				branch = master;
+				kind = branch;
 			};
 		};
-		E4EB186D2891809B00A95875 /* XCRemoteSwiftPackageReference "ChartView" */ = {
+		952A23EF289C468B0036D164 /* XCRemoteSwiftPackageReference "ChartView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AppPear/ChartView";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-		E4EB18702891813500A95875 /* XCRemoteSwiftPackageReference "Reachability" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
 			requirement = {
 				branch = master;
 				kind = branch;
@@ -605,15 +589,20 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E4EB186E2891809B00A95875 /* SwiftUICharts */ = {
+		952A23E6289C42BD0036D164 /* Reachability */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9514FCD028904E2700C8372D /* XCRemoteSwiftPackageReference "ChartView" */;
-			productName = SwiftUICharts;
-		};
-		E4EB18712891813500A95875 /* Reachability */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E4EB18702891813500A95875 /* XCRemoteSwiftPackageReference "Reachability" */;
+			package = 952A23E5289C42BD0036D164 /* XCRemoteSwiftPackageReference "Reachability.swift" */;
 			productName = Reachability;
+		};
+		952A23EB289C431A0036D164 /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 952A23E5289C42BD0036D164 /* XCRemoteSwiftPackageReference "Reachability.swift" */;
+			productName = Reachability;
+		};
+		952A23F0289C468B0036D164 /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 952A23EF289C468B0036D164 /* XCRemoteSwiftPackageReference "ChartView" */;
+			productName = SwiftUICharts;
 		};
 /* End XCSwiftPackageProductDependency section */
 
