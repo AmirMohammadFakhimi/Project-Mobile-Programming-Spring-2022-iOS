@@ -10,6 +10,7 @@ import SwiftUI
 struct CoinExchangeRatioView: View {
     @Binding var cryptocurrencies: [Cryptocurrency]
     let abbreviations: [String]
+    let defaultCrypto = "Dollar"
     
     var cryptoName: [String] = []
     @State var dataDidNotLoadAlert: Bool = false
@@ -20,25 +21,16 @@ struct CoinExchangeRatioView: View {
     init(cryptocurrencies: Binding<[Cryptocurrency]>, abbreviations: [String]) {
         self.abbreviations = abbreviations
         self._cryptocurrencies = cryptocurrencies
+        firstCrypto = defaultCrypto
+        secondCrypto = defaultCrypto
         
-        if cryptocurrencies.count != abbreviations.count {
-            dataDidNotLoadAlert = true
-            
-            _firstCrypto = State(initialValue: "")
-            _secondCrypto = State(initialValue: "")
-        } else {
-            dataDidNotLoadAlert = false
-            
-            for cryptocurrency in cryptocurrencies {
-                cryptoName.append(cryptocurrency.name.wrappedValue)
-            }
-            
-            _firstCrypto = State(initialValue: cryptoName[0])
-            _secondCrypto = State(initialValue: cryptoName[1])
+        cryptoName.removeAll()
+        for cryptocurrency in cryptocurrencies {
+            cryptoName.append(cryptocurrency.name.wrappedValue)
         }
     }
       
-    func format_double(value: Double) -> String {
+    func formatDouble(value: Double) -> String {
         var formattedValue = String(format: "%.5f", value)
 
         while formattedValue.last == "0" {
@@ -52,7 +44,7 @@ struct CoinExchangeRatioView: View {
         return formattedValue
     }
     
-    func get_price(cryptoName: String) -> Double {
+    func getPrice(cryptoName: String) -> Double {
         for cryptocurrency in cryptocurrencies {
             if cryptocurrency.name == cryptoName {
                 return cryptocurrency.price
@@ -82,13 +74,12 @@ struct CoinExchangeRatioView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 130, height: 130)
-                        
                         Picker("first crypto", selection: $firstCrypto) {
                             ForEach(cryptoName, id: \.self) {
                                 Text($0)
                             }
                         }
-                        Text("\(format_double(value: amount))")
+                        Text("\(formatDouble(value: amount))")
                             .font(.system(size: 25))
                             .fontWeight(.bold)
                     }
@@ -105,19 +96,40 @@ struct CoinExchangeRatioView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 130, height: 130)
-                        
                         Picker("second crypto", selection: $secondCrypto) {
                             ForEach(cryptoName, id: \.self) {
                                 Text($0)
                             }
                         }
-                        Text("\(format_double(value: amount * get_price(cryptoName: firstCrypto) / get_price(cryptoName: secondCrypto)))")
-                            .font(.system(size: 25))
-                            .fontWeight(.bold)
+                        
+                        let firstPrice = getPrice(cryptoName: firstCrypto)
+                        let secondPrice = getPrice(cryptoName: secondCrypto)
+                        if firstPrice == 0 || secondPrice == 0 {
+                            Text("No Data")
+                                .font(.system(size: 25))
+                                .fontWeight(.bold)
+                        } else {
+                            Text("\(formatDouble(value: amount * firstPrice / secondPrice))")
+                                .font(.system(size: 25))
+                                .fontWeight(.bold)
+                        }
                     }
                 }
             }
             .navigationTitle("Exchange Rate")
-            }
+        }
+        .onAppear(perform: doOnAppear)
+    }
+    
+    func doOnAppear() {
+        if cryptocurrencies.count != abbreviations.count {
+            dataDidNotLoadAlert = true
+            
+            firstCrypto = defaultCrypto
+            secondCrypto = defaultCrypto
+        } else {
+            firstCrypto = cryptoName[0]
+            secondCrypto = cryptoName[1]
+        }
     }
 }

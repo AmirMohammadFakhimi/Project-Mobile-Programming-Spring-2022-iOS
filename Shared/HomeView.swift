@@ -470,7 +470,8 @@ struct HomeView: View {
                     if needRefresh {
                         ProgressView()
                     } else {
-                        Text("⬇️")
+                        Image(systemName: "arrow.down")
+                            .opacity(0.5)
                     }
                     Spacer()
                 }

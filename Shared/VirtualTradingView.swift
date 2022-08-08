@@ -10,8 +10,6 @@ import SwiftUI
 
 struct VirtualTradingView: View {
     @Binding var cryptocurrencies: [Cryptocurrency]
-    @Binding var unknownErrorAlert: Bool
-    @Binding var isSyncing: Bool
     
     func get_total_money() -> Double {
         var sum = 0.0
@@ -35,7 +33,7 @@ struct VirtualTradingView: View {
         return formattedValue
     }
     
-    func show_tether_bar (cryptocurrency: Cryptocurrency) -> some View {
+    func show_tether_bar(cryptocurrency: Cryptocurrency) -> some View {
         return HStack {
             Image(cryptocurrency.name)
                 .resizable()

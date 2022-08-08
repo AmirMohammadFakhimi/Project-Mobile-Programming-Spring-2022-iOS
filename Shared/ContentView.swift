@@ -32,7 +32,7 @@ struct ContentView: View {
                          Text("Exchange Rate")
                 }
             
-            VirtualTradingView(cryptocurrencies: $cryptocurrencies, unknownErrorAlert: $unknownErrorAlert, isSyncing: $isSyncing)
+            VirtualTradingView(cryptocurrencies: $cryptocurrencies)
                 .tabItem {
                     Image(systemName: "chart.line.uptrend.xyaxis")
                          Text("Virtual Trading")
