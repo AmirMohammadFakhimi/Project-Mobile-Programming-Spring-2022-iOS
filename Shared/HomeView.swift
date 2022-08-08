@@ -14,9 +14,9 @@ struct HomeView: View {
     let abbreviations: [String]
     
     @Binding var cryptocurrencies: [Cryptocurrency]
-    @Binding var unknownErrorAlert: Bool
-    @Binding var isSyncing: Bool
     
+    @State var unknownErrorAlert: Bool = false
+    @State var isSyncing: Bool = false
     @State var favoriteCryptocurrencies: [Cryptocurrency] = []
     
     let favoriteCryptocurrencyError = "There isn't any favorite cryptocurrency!"
@@ -343,7 +343,7 @@ struct HomeView: View {
     
     func createCryptocurrency(_ abbreviation: String, _ data: Data) throws {
         if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
-            
+
             if json["values"] != nil {
                 let values = (json["values"]! as? [[String: String]])!
                 var history: [CryptocurrencyInfo] = []

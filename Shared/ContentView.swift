@@ -13,14 +13,11 @@ import Reachability
 
 struct ContentView: View {
     let abbreviations = ["BTC", "BNB", "DOGE", "XRP"].sorted()
-    
     @State var cryptocurrencies: [Cryptocurrency] = []
-    @State var isSyncing = false
-    @State var unknownErrorAlert = false
     
     var body: some View {
         TabView {
-            HomeView(abbreviations: abbreviations, cryptocurrencies: $cryptocurrencies, unknownErrorAlert: $unknownErrorAlert, isSyncing: $isSyncing)
+            HomeView(abbreviations: abbreviations, cryptocurrencies: $cryptocurrencies)
                 .tabItem {
                     Image(systemName: "house")
                     Text("Home")
@@ -32,7 +29,7 @@ struct ContentView: View {
                          Text("Exchange Rate")
                 }
             
-            VirtualTradingView(cryptocurrencies: $cryptocurrencies)
+            VirtualTradingView(cryptocurrencies: $cryptocurrencies, abbreviations: abbreviations)
                 .tabItem {
                     Image(systemName: "chart.line.uptrend.xyaxis")
                          Text("Virtual Trading")

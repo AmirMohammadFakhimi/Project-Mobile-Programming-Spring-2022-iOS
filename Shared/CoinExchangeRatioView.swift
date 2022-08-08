@@ -19,8 +19,9 @@ struct CoinExchangeRatioView: View {
     @State var amount: Double = 0.0
     
     init(cryptocurrencies: Binding<[Cryptocurrency]>, abbreviations: [String]) {
-        self.abbreviations = abbreviations
         self._cryptocurrencies = cryptocurrencies
+        self.abbreviations = abbreviations
+        
         firstCrypto = defaultCrypto
         secondCrypto = defaultCrypto
         
@@ -28,20 +29,6 @@ struct CoinExchangeRatioView: View {
         for cryptocurrency in cryptocurrencies {
             cryptoName.append(cryptocurrency.name.wrappedValue)
         }
-    }
-      
-    func formatDouble(value: Double) -> String {
-        var formattedValue = String(format: "%.5f", value)
-
-        while formattedValue.last == "0" {
-            formattedValue.removeLast()
-        }
-
-        if formattedValue.last == "." {
-            formattedValue.removeLast()
-        }
-
-        return formattedValue
     }
     
     func getPrice(cryptoName: String) -> Double {
@@ -64,9 +51,6 @@ struct CoinExchangeRatioView: View {
                 .padding(.bottom, 70)
                 .padding(.leading, 50)
                 .padding(.trailing, 50)
-                .alert("Data Did not load, yet!", isPresented: $dataDidNotLoadAlert) {
-                    Button("OK", role: .cancel) { }
-                }
                 
                 HStack {
                     VStack {
@@ -117,6 +101,9 @@ struct CoinExchangeRatioView: View {
                 }
             }
             .navigationTitle("Exchange Rate")
+        }
+        .alert(dataDidNotLoadError, isPresented: $dataDidNotLoadAlert) {
+            Button("OK", role: .cancel) { }
         }
         .onAppear(perform: doOnAppear)
     }

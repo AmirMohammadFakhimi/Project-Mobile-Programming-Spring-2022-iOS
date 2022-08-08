@@ -10,8 +10,16 @@ import SwiftUI
 
 struct VirtualTradingView: View {
     @Binding var cryptocurrencies: [Cryptocurrency]
+    let abbreviations: [String]
     
-    func get_total_money() -> Double {
+    @State var dataDidNotLoadAlert: Bool = false
+    
+    init(cryptocurrencies: Binding<[Cryptocurrency]>, abbreviations: [String]) {
+        self._cryptocurrencies = cryptocurrencies
+        self.abbreviations = abbreviations
+    }
+    
+    func getTotalMoney() -> Double {
         var sum = 0.0
         for cryptocurrency in cryptocurrencies {
             sum += cryptocurrency.amount * cryptocurrency.price
@@ -19,43 +27,10 @@ struct VirtualTradingView: View {
         return sum
     }
     
-    func format_double(value: Double) -> String {
-        var formattedValue = String(format: "%.5f", value)
-
-        while formattedValue.last == "0" {
-            formattedValue.removeLast()
-        }
-
-        if formattedValue.last == "." {
-            formattedValue.removeLast()
-        }
-
-        return formattedValue
-    }
-    
-    func show_tether_bar(cryptocurrency: Cryptocurrency) -> some View {
-        return HStack {
-            Image(cryptocurrency.name)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 70, height: 70)
-                .padding(.trailing)
-            VStack(alignment: .leading) {
-                Text(cryptocurrency.completeName)
-                    .bold()
-                
-                Text("Current Amount: \(format_double(value: cryptocurrency.amount))")
-                Text("Current Price: \("$" + format_double(value: cryptocurrency.price))")
-            }
-        }
-        .padding(.top, 5)
-        .padding(.bottom, 5)
-    }
-    
-    func show_coin_bar (cryptocurrency: Cryptocurrency) -> some View {
+    func showCoinBar(cryptocurrency: Cryptocurrency) -> some View {
         var i = 0
-        for iterated_cryptocurrency in cryptocurrencies {
-            if iterated_cryptocurrency.abbreviation == cryptocurrency.abbreviation {
+        for iteratedCryptocurrency in cryptocurrencies {
+            if iteratedCryptocurrency.abbreviation == cryptocurrency.abbreviation {
                 break
             }
             i = i + 1
@@ -74,8 +49,8 @@ struct VirtualTradingView: View {
                     VStack(alignment: .leading) {
                         Text(cryptocurrency.completeName)
                             .bold()
-                        Text("Current Amount: \(format_double(value: cryptocurrency.amount))")
-                        Text("Current Price: \("$" + format_double(value: cryptocurrency.price))")
+                        Text("Current Amount: \(formatDouble(value: cryptocurrency.amount))")
+                        Text("Current Price: \("$" + formatDouble(value: cryptocurrency.price))")
                     }
                 }
             }
@@ -89,24 +64,20 @@ struct VirtualTradingView: View {
             VStack {
                 List {
                     ForEach(cryptocurrencies, id: \.abbreviation) { cryptocurrency in
-                        if cryptocurrency.name == "tether" {
-                            show_tether_bar(cryptocurrency: cryptocurrency)
-                        }
-                        else {
-                            show_coin_bar(cryptocurrency: cryptocurrency)
-                        }
+                        showCoinBar(cryptocurrency: cryptocurrency)
                     }
                 .navigationTitle("Virtual Trading")
                 }
                 
-                Divider().background(.black)
+                Divider()
+                    .background(.black)
                 
                 HStack{
-                    Image("dollar")
+                    Image("Dollar")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 50, height: 50)
-                    Text("Current Money: \("$" + format_double(value: get_total_money()))")
+                    Text("Current Money: \("$" + formatDouble(value: getTotalMoney()))")
                         .bold()
                         .italic()
                         .foregroundColor(.black)
@@ -117,6 +88,14 @@ struct VirtualTradingView: View {
                 
                 Divider().background(.black)
                     .padding(.bottom, 10)
+            }
+        }
+        .alert(dataDidNotLoadError, isPresented: $dataDidNotLoadAlert) {
+            Button("OK", role: .cancel) { }
+        }
+        .onAppear {
+            if cryptocurrencies.count != abbreviations.count {
+                dataDidNotLoadAlert = true
             }
         }
     }
