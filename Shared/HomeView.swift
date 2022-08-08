@@ -23,9 +23,9 @@ struct HomeView: View {
 
     @State var seeAllAlert = false
     @State var unavailableNetworkAlert = false
+    @State var unavailableDataAlert = false
     @State var runOutOfAPICredits = false
     
-    let vSpacing: CGFloat = 4
     let intervalNumber: Int = 30
 
     func format_double(value: Double) -> String {
@@ -74,6 +74,11 @@ struct HomeView: View {
                         }
                         .alert("run out of API credits", isPresented: $runOutOfAPICredits) {
                             Button("OK", role: .cancel) { }
+                        }
+                        .alert("There isn't any data", isPresented: $unavailableDataAlert) {
+                            Button("OK", role: .cancel) { }
+                        } message: {
+                            Text("Please try to connect to the network.")
                         }
                     } else {
                         NavigationLink("See All", destination: AllFavoritesView($favoriteCryptocurrencies))
@@ -135,13 +140,6 @@ struct HomeView: View {
         }
     }
     
-    func getDefaultRectangle() -> some View {
-        Rectangle()
-            .fill(Color.white)
-            .cornerRadius(20)
-            .shadow(color: Color.gray, radius: 6)
-    }
-    
     func getChart(_ cryptocurrency: Cryptocurrency) -> some View {
         var data: [(String, Double)] = []
         for history in cryptocurrency.history {
@@ -177,22 +175,7 @@ struct HomeView: View {
                     .frame(width: UIScreen.main.bounds.size.width - 30, height: 80)
                     .overlay(
                         HStack {
-                            Image(cryptocurrency.name)
-                                .resizable()
-                                .scaledToFit()
-                                .padding(.all, 7)
-                            
-                            VStack(spacing: vSpacing) {
-                                Text(cryptocurrency.name)
-                                    .fontWeight(.bold)
-                                    .scaledToFit()
-                                Text(cryptocurrency.abbreviation)
-                                    .font(.system(size: 15))
-                                    .fontWeight(.semibold)
-                                    .frame(width: 90, alignment: .center)
-                                    .foregroundColor(.gray)
-                            }
-                            
+                            getLeftSideOfRectangle(cryptocurrency: cryptocurrency, vSpacing: vSpacing)
                             Spacer()
                             
                             VStack(alignment: .leading, spacing: vSpacing) {
@@ -268,52 +251,48 @@ struct HomeView: View {
     func getData() {
         isSyncing = true
         
-        if let path = Bundle.main.path(forResource: "API Keys", ofType: "plist") {
-            let keys = NSDictionary(contentsOfFile: path)!
-            
-            for abbreviation in abbreviations {
-                getCryptocurrencyData(abbreviation, (keys["twelvedataAPIKey"] as? String)!)
+        if isNetworkAvailable() {
+            if let path = Bundle.main.path(forResource: "API Keys", ofType: "plist") {
+                let keys = NSDictionary(contentsOfFile: path)!
+                
+                for abbreviation in abbreviations {
+                    getCryptocurrencyData(abbreviation, (keys["twelvedataAPIKey"] as? String)!)
+                }
+//                write data
+            } else {
+                unknownErrorAlert = true
             }
         } else {
-            unknownErrorAlert = true
+            unavailableNetworkAlert = true
+            
+            let projectDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let directoryName = projectDirectory.appendingPathComponent("cryptocurrencies", isDirectory: true)
+            
+            do {
+//                directory available
+                try FileManager.default.createDirectory(at: directoryName, withIntermediateDirectories: true)
+                
+//                read data
+            } catch {
+//                directory unavailable
+                do {
+                    try FileManager.default.removeItem(at: directoryName)
+                    unavailableDataAlert = true
+                } catch {
+                    unknownErrorAlert = true
+                }
+                
+            }
         }
         
-        
-        //        let projectDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        //        let directoryName = projectDirectory.appendingPathComponent("cryptocurrencies", isDirectory: true)
-        //        do {
-        //            try FileManager.default.createDirectory(at: directoryName, withIntermediateDirectories: true)
-        //
-        //    //            directory unavailable
-        //            if isNetworkAvailable() {
-        //    //            get data from api
-        //
-        //    //                write data in file
-        //    //                let cryptocurrency: Cryptocurrency = Cryptocurrency(symbol: "a", name: "A", history: [])
-        //    //                let jsonEncoder = JSONEncoder()
-        //    //                let jsonData = try jsonEncoder.encode(cryptocurrency)
-        //    //                let json = String(data: jsonData, encoding: String.Encoding.utf16)
-        //    //                let cryptocurrencyDir = directoryName.appendingPathComponent("Bitcoin.txt", isDirectory: true)
-        //    //                try json?.write(to: cryptocurrencyDir, atomically: true, encoding: String.Encoding.utf16)
-        //            } else {
-        //                try FileManager.default.removeItem(at: directoryName)
-        //            }
-        //        } catch {
-        //    //            directory available
-        //            if isNetworkAvailable() {
-        //    //            get data from api
-        //
-        //    //                let cryptocurrency: Cryptocurrency = Cryptocurrency(symbol: "a", name: "A", history: [])
-        //    //                let jsonEncoder = JSONEncoder()
-        //    //                let jsonData = try jsonEncoder.encode(cryptocurrency)
-        //    //                let json = String(data: jsonData, encoding: String.Encoding.utf16)
-        //    //                let cryptocurrencyDir = directoryName.appendingPathComponent("Bitcoin.txt", isDirectory: true)
-        //    //                try json?.write(to: cryptocurrencyDir, atomically: true, encoding: String.Encoding.utf16)
-        //            } else {
-        //    //                read data from txt and create Cryptocurrencies
-        //            }
-        //
-        //        }
+                //                write data in file
+                //                let cryptocurrency: Cryptocurrency = Cryptocurrency(symbol: "a", name: "A", history: [])
+                //                let jsonEncoder = JSONEncoder()
+                //                let jsonData = try jsonEncoder.encode(cryptocurrency)
+                //                let json = String(data: jsonData, encoding: String.Encoding.utf16)
+                //                let cryptocurrencyDir = directoryName.appendingPathComponent("Bitcoin.txt", isDirectory: true)
+                //                try json?.write(to: cryptocurrencyDir, atomically: true, encoding: String.Encoding.utf16)
+            
     }
     
     func getCryptocurrencyData(_ abbreviation: String, _ apiKey: String) {

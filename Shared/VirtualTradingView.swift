@@ -9,6 +9,8 @@ import SwiftUI
 
 
 struct VirtualTradingView: View {
+    @State var userMoney: Double = 5000
+    
     @Binding var cryptocurrencies: [Cryptocurrency]
     let abbreviations: [String]
     
@@ -18,55 +20,71 @@ struct VirtualTradingView: View {
         self._cryptocurrencies = cryptocurrencies
         self.abbreviations = abbreviations
     }
-    
-    func getTotalMoney() -> Double {
-        var sum = 0.0
-        for cryptocurrency in cryptocurrencies {
-            sum += cryptocurrency.amount * cryptocurrency.price
-        }
-        return sum
-    }
-    
-    func showCoinBar(cryptocurrency: Cryptocurrency) -> some View {
-        var i = 0
-        for iteratedCryptocurrency in cryptocurrencies {
-            if iteratedCryptocurrency.abbreviation == cryptocurrency.abbreviation {
-                break
-            }
-            i = i + 1
-        }
         
-        return HStack {
-            Image(cryptocurrency.name)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 70, height: 70)
-                .padding(.trailing)
-            VStack {
+    func showCoinBar(cryptocurrency: Cryptocurrency) -> some View {
+        return getDefaultRectangle()
+            .frame(width: UIScreen.main.bounds.size.width - 30, height: 80)
+            .padding([.leading, .bottom, .trailing])
+            .overlay(
                 NavigationLink {
-                    VirtualBuySellView(coin: $cryptocurrencies[i], tether: $cryptocurrencies[0])
+                    VirtualBuySellView(cryptocurrency, $userMoney)
                 } label: {
-                    VStack(alignment: .leading) {
-                        Text(cryptocurrency.completeName)
-                            .bold()
-                        Text("Current Amount: \(formatDouble(value: cryptocurrency.amount))")
-                        Text("Current Price: \("$" + formatDouble(value: cryptocurrency.price))")
+                    HStack {
+                        getLeftSideOfRectangle(cryptocurrency: cryptocurrency, vSpacing: vSpacing)
+                        Spacer()
+                        
+                        VStack(spacing: vSpacing) {
+                            Text("$" + formatDouble(value: cryptocurrency.price))
+                                .fontWeight(.semibold)
+                                .foregroundColor(Color.black)
+                            
+                            Text("\(formatDouble(value: cryptocurrency.virtualTradingAmount)) Coins")
+                                .fontWeight(.semibold)
+                                .foregroundColor(Color.black)
+                        }
+                        
+                        Spacer()
+                        Image(systemName: "chevron.right.circle")
+                            .scaledToFill()
+                            .scaleEffect(1.5)
+                            .padding(.trailing, 20)
                     }
+                    .padding([.leading, .bottom, .trailing])
+                    
                 }
-            }
-        }
-        .padding(.top, 5)
-        .padding(.bottom, 5)
+            )
+//        return HStack {
+//            Image(cryptocurrency.name)
+//                .resizable()
+//                .scaledToFit()
+//                .frame(width: 70, height: 70)
+//                .padding(.trailing)
+//            VStack {
+//                NavigationLink {
+//                    VirtualBuySellView(cryptocurrency, $userMoney)
+//                } label: {
+//                    VStack(alignment: .leading) {
+//                        Text(cryptocurrency.completeName)
+//                            .bold()
+//                        Text("Current Amount: \(formatDouble(value: cryptocurrency.amount))")
+//                        Text("Current Price: \("$" + formatDouble(value: cryptocurrency.price))")
+//                    }
+//                }
+//            }
+//        }
+//        .padding(.top, 5)
+//        .padding(.bottom, 5)
     }
     
     var body: some View {
         NavigationView {
             VStack {
-                List {
+                ScrollView {
                     ForEach(cryptocurrencies, id: \.abbreviation) { cryptocurrency in
                         showCoinBar(cryptocurrency: cryptocurrency)
                     }
                 .navigationTitle("Virtual Trading")
+                .padding(.vertical, 5)
                 }
                 
                 Divider()
@@ -77,7 +95,7 @@ struct VirtualTradingView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 50, height: 50)
-                    Text("Current Money: \("$" + formatDouble(value: getTotalMoney()))")
+                    Text("Current Money: \("$" + formatDouble(value: userMoney))")
                         .bold()
                         .italic()
                         .foregroundColor(.black)
@@ -98,5 +116,17 @@ struct VirtualTradingView: View {
                 dataDidNotLoadAlert = true
             }
         }
+    }
+}
+
+struct VirtualTraidingView_Previews: PreviewProvider {
+    @State static var cryptocurrencies: [Cryptocurrency] = [
+        Cryptocurrency(symbol: "BNB/USD", name: "Binance Coin", history: [], abbreviation: "BNB"),
+        Cryptocurrency(symbol: "BTC/USD", name: "Bitcoin", history: [], abbreviation: "BTC")
+    ]
+    static let abbreviations = ["BNB", "BTC"]
+        
+    static var previews: some View {
+        VirtualTradingView(cryptocurrencies: $cryptocurrencies, abbreviations: abbreviations)
     }
 }

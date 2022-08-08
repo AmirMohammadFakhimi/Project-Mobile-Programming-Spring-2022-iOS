@@ -19,7 +19,7 @@ class Cryptocurrency: Codable {
     var name: String
     var abbreviation: String
     var price: Double
-    var amount: Double
+    var virtualTradingAmount: Double = 0
     var isFavorite: Bool = false
     var history: [CryptocurrencyInfo]
     
@@ -42,21 +42,10 @@ class Cryptocurrency: Codable {
         }
     }
     
-    init(symbol: String, name: String, price: Double = 0, history: [CryptocurrencyInfo], abbreviation: String, amount: Double = -1) {
+    init(symbol: String, name: String, price: Double = 0, history: [CryptocurrencyInfo], abbreviation: String) {
         self.name = name
         self.abbreviation = abbreviation
         self.price = price
         self.history = history
-        
-        if amount == -1 {
-            if name == "tether" {
-                self.amount = 5000.0
-            } else {
-                self.amount = 0.0
-            }
-        }
-        else {
-            self.amount = 0.0
-        }
     }
 }

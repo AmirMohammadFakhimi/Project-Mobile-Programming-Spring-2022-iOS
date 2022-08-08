@@ -8,25 +8,20 @@
 import SwiftUI
 
 struct VirtualBuySellView: View {
+    @State var cryptocurrency: Cryptocurrency
+    @Binding var userMoney: Double
     
-    @Binding var coin: Cryptocurrency
-    @Binding var tether: Cryptocurrency
-    @Binding var tether_amount: Double
-    
-    @Binding var coin_name: String
-    @Binding var coin_price: Double
-    @Binding var coin_amount: Double
-    @Binding var coin_abbreviation: String
-    
-    init(coin: Binding<Cryptocurrency>, tether: Binding<Cryptocurrency>) {
-        self._coin = coin
-        self._tether = tether
+    @State private var enoughMoneyAlert = false
+    @State private var enoughCoinAlert = false
+    @State private var buySuccessAlert = false
+    @State private var sellSuccessAlert = false
+    @State private var enterAmountAlert = false
+    @State private var dataDidNotLoadAlert = false
+    @State private var amount = ""
         
-        self._coin_name = coin.name
-        self._coin_price = coin.price
-        self._coin_amount = coin.amount
-        self._coin_abbreviation = coin.abbreviation
-        self._tether_amount = tether.amount
+    init(_ cryptocurrency: Cryptocurrency, _ userMoney: Binding<Double>) {
+        self.cryptocurrency = cryptocurrency
+        self._userMoney = userMoney
     }
     
     func format_double(value: Double) -> String {
@@ -42,49 +37,41 @@ struct VirtualBuySellView: View {
 
         return formattedValue
     }
-    
-    @State private var amount = ""
-    @State private var showing_alert_enough_money = false
-    @State private var showing_alert_enough_coin = false
-    @State private var showing_alert_buy_success = false
-    @State private var showing_alert_sell_success = false
-    @State private var showing_alert_enter_amount = false
-    @State private var showing_alert_fetch_data = false
         
     var body: some View {
         VStack(alignment: .center) {
-            Image(coin_name)
+            Image(cryptocurrency.name)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 150, height: 150)
             
-            Text(coin_abbreviation)
+            Text(cryptocurrency.abbreviation)
                 .bold()
                 .padding(.bottom)
             
-            Text("Price: \("$" + format_double(value: coin_price))")
-            Text("Current Amount: \(format_double(value: coin_amount))")
+            Text("Price: \("$" + format_double(value: cryptocurrency.price))")
+            Text("Current Amount: \(format_double(value: cryptocurrency.virtualTradingAmount))")
                 .padding(.bottom)
             
             TextField("Amount", text: $amount)
                 .multilineTextAlignment(.center)
-            Text("Price: \("$" + format_double(value: (Double(amount) ?? 0) * coin_price))")
+            Text("Price: \("$" + format_double(value: (Double(amount) ?? 0) * cryptocurrency.price))")
             HStack {
                 Button {
-                    if coin_price == 0 {
-                        showing_alert_fetch_data = true
+                    if cryptocurrency.price == 0 {
+                        dataDidNotLoadAlert = true
                     } else if amount == "" {
-                        showing_alert_enter_amount = true
+                        enterAmountAlert = true
                     }
                     else {
-                        let cost = coin_price * Double(amount)!
-                        if cost > tether_amount {
-                            showing_alert_enough_money = true
+                        let cost = cryptocurrency.price * Double(amount)!
+                        if cost > userMoney {
+                            enoughMoneyAlert = true
                         }
                         else {
-                            tether_amount -= cost
-                            coin_amount += Double(amount)!
-                            showing_alert_buy_success = true
+                            userMoney -= cost
+                            cryptocurrency.virtualTradingAmount += Double(amount)!
+                            buySuccessAlert = true
                         }
                         
                         amount = ""
@@ -96,33 +83,33 @@ struct VirtualBuySellView: View {
                         .foregroundColor(Color.white)
                         .cornerRadius(10)
                 }
-                .alert("No enough money!", isPresented: $showing_alert_enough_money) {
+                .alert("No enough money!", isPresented: $enoughMoneyAlert) {
                     Button("OK", role: .cancel) { }
                 }
-                .alert("Buy successful!", isPresented: $showing_alert_buy_success) {
+                .alert("Buy successful!", isPresented: $buySuccessAlert) {
                     Button("OK", role: .cancel) { }
                 }
-                .alert("Please enter the amount", isPresented: $showing_alert_enter_amount) {
+                .alert("Please enter the amount", isPresented: $enterAmountAlert) {
                     Button("OK", role: .cancel) { }
                 }
-                .alert("Please wait until fetching data ends", isPresented: $showing_alert_fetch_data) {
+                .alert(dataDidNotLoadError, isPresented: $dataDidNotLoadAlert) {
                     Button("OK", role: .cancel) { }
                 }
                 
                 
                 Button {
                     if amount == "" {
-                        showing_alert_enter_amount = true
+                        enterAmountAlert = true
                     }
                     else {
-                        let cost = coin_price * Double(amount)!
-                        if Double(amount)! > coin_amount {
-                            showing_alert_enough_coin = true
+                        let cost = cryptocurrency.price * Double(amount)!
+                        if Double(amount)! > cryptocurrency.virtualTradingAmount {
+                            enoughCoinAlert = true
                         }
                         else {
-                            tether_amount += cost
-                            coin_amount -= Double(amount)!
-                            showing_alert_sell_success = true
+                            userMoney += cost
+                            cryptocurrency.virtualTradingAmount -= Double(amount)!
+                            sellSuccessAlert = true
                         }
                         
                         amount = ""
@@ -134,13 +121,13 @@ struct VirtualBuySellView: View {
                         .foregroundColor(Color.white)
                         .cornerRadius(10)
                 }
-                .alert("No enough coins!", isPresented: $showing_alert_enough_coin) {
+                .alert("No enough coins!", isPresented: $enoughCoinAlert) {
                     Button("OK", role: .cancel) { }
                 }
-                .alert("Sell successful!", isPresented: $showing_alert_sell_success) {
+                .alert("Sell successful!", isPresented: $sellSuccessAlert) {
                     Button("OK", role: .cancel) { }
                 }
-                .alert("Please enter the amount", isPresented: $showing_alert_enter_amount) {
+                .alert("Please enter the amount", isPresented: $enterAmountAlert) {
                     Button("OK", role: .cancel) { }
                 }
             }
