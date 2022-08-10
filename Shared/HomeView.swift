@@ -246,53 +246,61 @@ struct HomeView: View {
         let dummy = Cryptocurrency(symbol: "", name: "", history: [], abbreviation: "")
         cryptocurrencies.append(dummy)
         cryptocurrencies.removeLast()
+        
+        for cryptocurrency in cryptocurrencies {
+            writeData(cryptocurrency)
+        }
     }
     
     func getData() {
         isSyncing = true
         
         if isNetworkAvailable() {
-            if let path = Bundle.main.path(forResource: "API Keys", ofType: "plist") {
-                let keys = NSDictionary(contentsOfFile: path)!
-                
-                for abbreviation in abbreviations {
-                    getCryptocurrencyData(abbreviation, (keys["twelvedataAPIKey"] as? String)!)
-                }
-//                write data
-            } else {
-                unknownErrorAlert = true
+            doNetworkAvailable()
+        } else {
+            doNetworkUnavailable()
+        }
+    }
+    
+    func doNetworkAvailable() {
+        if let path = Bundle.main.path(forResource: "API Keys", ofType: "plist") {
+            let keys = NSDictionary(contentsOfFile: path)!
+            
+            for abbreviation in abbreviations {
+                getCryptocurrencyData(abbreviation, (keys["twelvedataAPIKey"] as? String)!)
             }
         } else {
-            unavailableNetworkAlert = true
-            
-            let projectDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            let directoryName = projectDirectory.appendingPathComponent("cryptocurrencies", isDirectory: true)
-            
-            do {
-//                directory available
-                try FileManager.default.createDirectory(at: directoryName, withIntermediateDirectories: true)
-                
-//                read data
-            } catch {
-//                directory unavailable
-                do {
-                    try FileManager.default.removeItem(at: directoryName)
-                    unavailableDataAlert = true
-                } catch {
-                    unknownErrorAlert = true
-                }
-                
-            }
+            unknownErrorAlert = true
         }
+    }
+    
+    func doNetworkUnavailable() {
+        unavailableNetworkAlert = true
+        let directoryName = getProjectDirectory()
         
-                //                write data in file
-                //                let cryptocurrency: Cryptocurrency = Cryptocurrency(symbol: "a", name: "A", history: [])
-                //                let jsonEncoder = JSONEncoder()
-                //                let jsonData = try jsonEncoder.encode(cryptocurrency)
-                //                let json = String(data: jsonData, encoding: String.Encoding.utf16)
-                //                let cryptocurrencyDir = directoryName.appendingPathComponent("Bitcoin.txt", isDirectory: true)
-                //                try json?.write(to: cryptocurrencyDir, atomically: true, encoding: String.Encoding.utf16)
+        do {
+//                directory available
+            try FileManager.default.createDirectory(at: directoryName, withIntermediateDirectories: true)
             
+            for abbreviation in abbreviations {
+                let _ = print(4)
+                readData(abbreviation)
+            }
+        } catch {
+//                directory unavailable
+            do {
+                try FileManager.default.removeItem(at: directoryName)
+                unavailableDataAlert = true
+            } catch {
+                unknownErrorAlert = true
+            }
+            
+        }
+    }
+    
+    func getProjectDirectory() -> URL {
+        let projectDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        return projectDirectory.appendingPathComponent("cryptocurrencies", isDirectory: true)
     }
     
     func getCryptocurrencyData(_ abbreviation: String, _ apiKey: String) {
@@ -340,6 +348,8 @@ struct HomeView: View {
                     let cryptocurrency = Cryptocurrency(symbol: meta["symbol"]!, name: meta["currency_base"]!, history: history, abbreviation: abbreviation)
                     cryptocurrencies.append(cryptocurrency)
                     cryptocurrencies = sortCryptocurrencyByName(cryptocurrencies)
+                    let _ = print(1)
+                    writeData(cryptocurrency)
                 } else {
                     cryptocurrency!.history = history
                     doDummyOnCryptocurrencies()
@@ -349,6 +359,50 @@ struct HomeView: View {
                 runOutOfAPICredits = true
             }
         } else {
+            unknownErrorAlert = true
+        }
+    }
+    
+    func writeData(_ cryptocurrency: Cryptocurrency) {
+        do {
+            let _ = print(2)
+            let directoryName = getProjectDirectory()
+            
+            let jsonEncoder = JSONEncoder()
+            let jsonData = try jsonEncoder.encode(cryptocurrency)
+            let json = String(data: jsonData, encoding: .utf8)
+            let cryptocurrencyDir = directoryName.appendingPathComponent("\(cryptocurrency.abbreviation).txt", isDirectory: true)
+            try json?.write(to: cryptocurrencyDir, atomically: true, encoding: String.Encoding.utf16)
+        } catch {
+            let _ = print(3)
+            unknownErrorAlert = true
+        }
+    }
+    
+    func readData(_ cryptocurrencyAbbreviation: String) {
+        do {
+            let _ = print(5)
+            let directoryName = getProjectDirectory()
+            let cryptocurrencyDir = directoryName.appendingPathComponent("\(cryptocurrencyAbbreviation).txt", isDirectory: true)
+            
+            let json = try String(contentsOf: cryptocurrencyDir, encoding: .utf16)
+            
+            let jsonDecoder = JSONDecoder()
+            let cryptocurrency = try jsonDecoder.decode(Cryptocurrency.self, from: json.data(using: .utf8)!)
+            
+            let getCryptocurrency = getCryptocurrency(cryptocurrencyAbbreviation)
+            if getCryptocurrency == nil {
+                let _ = print(7)
+                cryptocurrencies.append(cryptocurrency)
+                cryptocurrencies = sortCryptocurrencyByName(cryptocurrencies)
+            } else {
+                let _ = print(8)
+                getCryptocurrency!.history = cryptocurrency.history
+                getCryptocurrency!.price = cryptocurrency.price
+                doDummyOnCryptocurrencies()
+            }
+        } catch {
+            let _ = print(6)
             unknownErrorAlert = true
         }
     }

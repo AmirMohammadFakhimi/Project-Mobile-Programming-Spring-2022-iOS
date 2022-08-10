@@ -12,7 +12,7 @@ import SwiftUICharts
 import Reachability
 
 struct ContentView: View {
-    let abbreviations = ["BTC", "BNB", "DOGE", "XRP"].sorted()
+    let abbreviations = ["BNB", "BTC", "DOGE", "XRP"].sorted()
     @State var cryptocurrencies: [Cryptocurrency] = []
     
     var body: some View {
