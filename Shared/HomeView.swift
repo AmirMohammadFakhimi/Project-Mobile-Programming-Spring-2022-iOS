@@ -69,7 +69,7 @@ struct HomeView: View {
                         } message: {
                             Text("Please try again.")
                         }
-                        .alert("Unavailable Network", isPresented: $unavailableNetworkAlert) {
+                        .alert("Network Unavailable", isPresented: $unavailableNetworkAlert) {
                             Button("OK", role: .cancel) { }
                         }
                         .alert("run out of API credits", isPresented: $runOutOfAPICredits) {
@@ -283,7 +283,6 @@ struct HomeView: View {
             try FileManager.default.createDirectory(at: directoryName, withIntermediateDirectories: true)
             
             for abbreviation in abbreviations {
-                let _ = print(4)
                 readData(abbreviation)
             }
         } catch {
@@ -348,7 +347,6 @@ struct HomeView: View {
                     let cryptocurrency = Cryptocurrency(symbol: meta["symbol"]!, name: meta["currency_base"]!, history: history, abbreviation: abbreviation)
                     cryptocurrencies.append(cryptocurrency)
                     cryptocurrencies = sortCryptocurrencyByName(cryptocurrencies)
-                    let _ = print(1)
                     writeData(cryptocurrency)
                 } else {
                     cryptocurrency!.history = history
@@ -365,7 +363,6 @@ struct HomeView: View {
     
     func writeData(_ cryptocurrency: Cryptocurrency) {
         do {
-            let _ = print(2)
             let directoryName = getProjectDirectory()
             
             let jsonEncoder = JSONEncoder()
@@ -374,14 +371,12 @@ struct HomeView: View {
             let cryptocurrencyDir = directoryName.appendingPathComponent("\(cryptocurrency.abbreviation).txt", isDirectory: true)
             try json?.write(to: cryptocurrencyDir, atomically: true, encoding: String.Encoding.utf16)
         } catch {
-            let _ = print(3)
             unknownErrorAlert = true
         }
     }
     
     func readData(_ cryptocurrencyAbbreviation: String) {
         do {
-            let _ = print(5)
             let directoryName = getProjectDirectory()
             let cryptocurrencyDir = directoryName.appendingPathComponent("\(cryptocurrencyAbbreviation).txt", isDirectory: true)
             
@@ -392,17 +387,14 @@ struct HomeView: View {
             
             let getCryptocurrency = getCryptocurrency(cryptocurrencyAbbreviation)
             if getCryptocurrency == nil {
-                let _ = print(7)
                 cryptocurrencies.append(cryptocurrency)
                 cryptocurrencies = sortCryptocurrencyByName(cryptocurrencies)
             } else {
-                let _ = print(8)
                 getCryptocurrency!.history = cryptocurrency.history
                 getCryptocurrency!.price = cryptocurrency.price
                 doDummyOnCryptocurrencies()
             }
         } catch {
-            let _ = print(6)
             unknownErrorAlert = true
         }
     }
