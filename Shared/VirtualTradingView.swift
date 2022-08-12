@@ -9,16 +9,19 @@ import SwiftUI
 
 
 struct VirtualTradingView: View {
-    @State var userMoney: Double = 5000
+    @Binding var userMoney: Double
     
     @Binding var cryptocurrencies: [Cryptocurrency]
+    @Binding var unknownErrorAlert: Bool
     let abbreviations: [String]
     
     @State var dataDidNotLoadAlert: Bool = false
     
-    init(cryptocurrencies: Binding<[Cryptocurrency]>, abbreviations: [String]) {
+    init(cryptocurrencies: Binding<[Cryptocurrency]>, abbreviations: [String], userMoney: Binding<Double>, unknownErrorAlert: Binding<Bool>) {
         self._cryptocurrencies = cryptocurrencies
         self.abbreviations = abbreviations
+        self._userMoney = userMoney
+        self._unknownErrorAlert = unknownErrorAlert
     }
         
     func showCoinBar(cryptocurrency: Cryptocurrency) -> some View {
@@ -27,7 +30,7 @@ struct VirtualTradingView: View {
             .padding([.leading, .bottom, .trailing])
             .overlay(
                 NavigationLink {
-                    VirtualBuySellView(cryptocurrency, $userMoney)
+                    VirtualBuySellView(cryptocurrency, $userMoney, cryptocurrencies: $cryptocurrencies, unknownErrorAlert: $unknownErrorAlert)
                 } label: {
                     HStack {
                         getLeftSideOfRectangle(cryptocurrency: cryptocurrency, vSpacing: vSpacing)
@@ -53,27 +56,6 @@ struct VirtualTradingView: View {
                     
                 }
             )
-//        return HStack {
-//            Image(cryptocurrency.name)
-//                .resizable()
-//                .scaledToFit()
-//                .frame(width: 70, height: 70)
-//                .padding(.trailing)
-//            VStack {
-//                NavigationLink {
-//                    VirtualBuySellView(cryptocurrency, $userMoney)
-//                } label: {
-//                    VStack(alignment: .leading) {
-//                        Text(cryptocurrency.completeName)
-//                            .bold()
-//                        Text("Current Amount: \(formatDouble(value: cryptocurrency.amount))")
-//                        Text("Current Price: \("$" + formatDouble(value: cryptocurrency.price))")
-//                    }
-//                }
-//            }
-//        }
-//        .padding(.top, 5)
-//        .padding(.bottom, 5)
     }
     
     var body: some View {
@@ -90,16 +72,20 @@ struct VirtualTradingView: View {
                 Divider()
                     .background(.black)
                 
-                HStack{
+                HStack {
                     Image("Dollar")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 50, height: 50)
-                    Text("Current Money: \("$" + formatDouble(value: userMoney))")
-                        .bold()
-                        .italic()
-                        .foregroundColor(.black)
-                        .font(.system(size: 20, weight: .light, design: .default))
+                    Button {
+                        
+                    } label: {
+                        Text("Current Money: \("$" + formatDouble(value: userMoney))")
+                            .bold()
+                            .italic()
+                            .foregroundColor(.black)
+                            .font(.system(size: 20, weight: .light, design: .default))
+                    }
                 }
                 .padding(.top, 5)
                 .padding(.bottom, 5)
@@ -125,8 +111,11 @@ struct VirtualTraidingView_Previews: PreviewProvider {
         Cryptocurrency(symbol: "BTC/USD", name: "Bitcoin", history: [], abbreviation: "BTC")
     ]
     static let abbreviations = ["BNB", "BTC"]
+    
+    @State static var userMoney: Double = 5000
+    @State static var unknownErrorAlert: Bool = false
         
     static var previews: some View {
-        VirtualTradingView(cryptocurrencies: $cryptocurrencies, abbreviations: abbreviations)
+        VirtualTradingView(cryptocurrencies: $cryptocurrencies, abbreviations: abbreviations, userMoney: $userMoney, unknownErrorAlert: $unknownErrorAlert)
     }
 }

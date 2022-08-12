@@ -10,6 +10,8 @@ import SwiftUI
 struct VirtualBuySellView: View {
     @State var cryptocurrency: Cryptocurrency
     @Binding var userMoney: Double
+    @Binding var cryptocurrencies: [Cryptocurrency]
+    @Binding var unknownErrorAlert: Bool
     
     @State private var enoughMoneyAlert = false
     @State private var enoughCoinAlert = false
@@ -19,9 +21,11 @@ struct VirtualBuySellView: View {
     @State private var dataDidNotLoadAlert = false
     @State private var amount = ""
         
-    init(_ cryptocurrency: Cryptocurrency, _ userMoney: Binding<Double>) {
+    init(_ cryptocurrency: Cryptocurrency, _ userMoney: Binding<Double>, cryptocurrencies: Binding<[Cryptocurrency]>, unknownErrorAlert: Binding<Bool>) {
         self.cryptocurrency = cryptocurrency
         self._userMoney = userMoney
+        self._cryptocurrencies = cryptocurrencies
+        self._unknownErrorAlert = unknownErrorAlert
     }
     
     func format_double(value: Double) -> String {
@@ -72,6 +76,8 @@ struct VirtualBuySellView: View {
                             userMoney -= cost
                             cryptocurrency.virtualTradingAmount += Double(amount)!
                             buySuccessAlert = true
+                            
+                            doDummyOnCryptocurrencies(cryptocurrencies: $cryptocurrencies, userMoney: $userMoney, unknownErrorAlert: $unknownErrorAlert)
                         }
                         
                         amount = ""
@@ -110,6 +116,8 @@ struct VirtualBuySellView: View {
                             userMoney += cost
                             cryptocurrency.virtualTradingAmount -= Double(amount)!
                             sellSuccessAlert = true
+                            
+                            doDummyOnCryptocurrencies(cryptocurrencies: $cryptocurrencies, userMoney: $userMoney, unknownErrorAlert: $unknownErrorAlert)
                         }
                         
                         amount = ""

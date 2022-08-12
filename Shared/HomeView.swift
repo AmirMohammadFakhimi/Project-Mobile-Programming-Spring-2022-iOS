@@ -14,8 +14,9 @@ struct HomeView: View {
     let abbreviations: [String]
     
     @Binding var cryptocurrencies: [Cryptocurrency]
+    @Binding var userMoney: Double
+    @Binding var unknownErrorAlert: Bool
     
-    @State var unknownErrorAlert: Bool = false
     @State var isSyncing: Bool = false
     @State var favoriteCryptocurrencies: [Cryptocurrency] = []
     
@@ -149,7 +150,7 @@ struct HomeView: View {
         let button = getStarButton(cryptocurrency: cryptocurrency, imageName: "star.fill") {
             removeFromFavoriteCryptocarrencies(cryptocurrency)
             cryptocurrency.isFavorite = false
-            doDummyOnCryptocurrencies()
+            doDummyOnCryptocurrencies(cryptocurrencies: $cryptocurrencies, userMoney: $userMoney, unknownErrorAlert: $unknownErrorAlert)
         }
         
         return BarChartView(data: ChartData(values: data), title: cryptocurrency.name, legend: "Daily", form: ChartForm.medium, cornerButton: button, valueSpecifier: "%.2f")
@@ -222,14 +223,14 @@ struct HomeView: View {
                                     getStarButton(cryptocurrency: cryptocurrency, imageName: "star.fill") {
                                         cryptocurrency.isFavorite = false
                                         removeFromFavoriteCryptocarrencies(cryptocurrency)
-                                        doDummyOnCryptocurrencies()
+                                        doDummyOnCryptocurrencies(cryptocurrencies: $cryptocurrencies, userMoney: $userMoney, unknownErrorAlert: $unknownErrorAlert)
                                     }
                                 } else {
                                     getStarButton(cryptocurrency: cryptocurrency, imageName: "star") {
                                         cryptocurrency.isFavorite = true
                                         favoriteCryptocurrencies.append(cryptocurrency)
                                         favoriteCryptocurrencies = sortCryptocurrencyByName(favoriteCryptocurrencies)
-                                        doDummyOnCryptocurrencies()
+                                        doDummyOnCryptocurrencies(cryptocurrencies: $cryptocurrencies, userMoney: $userMoney, unknownErrorAlert: $unknownErrorAlert)
                                     }
                                 }
                             }
@@ -240,16 +241,6 @@ struct HomeView: View {
             .padding(.vertical, 5)
         }
         .coordinateSpace(name: "")
-    }
-    
-    func doDummyOnCryptocurrencies() {
-        let dummy = Cryptocurrency(symbol: "", name: "", history: [], abbreviation: "")
-        cryptocurrencies.append(dummy)
-        cryptocurrencies.removeLast()
-        
-        for cryptocurrency in cryptocurrencies {
-            writeData(cryptocurrency)
-        }
     }
     
     func getData() {
@@ -282,9 +273,7 @@ struct HomeView: View {
 //                directory available
             try FileManager.default.createDirectory(at: directoryName, withIntermediateDirectories: true)
             
-            for abbreviation in abbreviations {
-                readData(abbreviation)
-            }
+            readAllData()
         } catch {
 //                directory unavailable
             do {
@@ -295,11 +284,6 @@ struct HomeView: View {
             }
             
         }
-    }
-    
-    func getProjectDirectory() -> URL {
-        let projectDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        return projectDirectory.appendingPathComponent("cryptocurrencies", isDirectory: true)
     }
     
     func getCryptocurrencyData(_ abbreviation: String, _ apiKey: String) {
@@ -347,31 +331,33 @@ struct HomeView: View {
                     let cryptocurrency = Cryptocurrency(symbol: meta["symbol"]!, name: meta["currency_base"]!, history: history, abbreviation: abbreviation)
                     cryptocurrencies.append(cryptocurrency)
                     cryptocurrencies = sortCryptocurrencyByName(cryptocurrencies)
-                    writeData(cryptocurrency)
+                    writeData(cryptocurrency: cryptocurrency, unknownErrorAlert: $unknownErrorAlert)
                 } else {
                     cryptocurrency!.history = history
-                    doDummyOnCryptocurrencies()
+                    doDummyOnCryptocurrencies(cryptocurrencies: $cryptocurrencies, userMoney: $userMoney, unknownErrorAlert: $unknownErrorAlert)
                 }
                 
             } else {
                 runOutOfAPICredits = true
+                readAllData()
             }
         } else {
             unknownErrorAlert = true
         }
     }
     
-    func writeData(_ cryptocurrency: Cryptocurrency) {
+    func readAllData() {
+        let directoryName = getProjectDirectory()
+        
         do {
-            let directoryName = getProjectDirectory()
-            
-            let jsonEncoder = JSONEncoder()
-            let jsonData = try jsonEncoder.encode(cryptocurrency)
-            let json = String(data: jsonData, encoding: .utf8)
-            let cryptocurrencyDir = directoryName.appendingPathComponent("\(cryptocurrency.abbreviation).txt", isDirectory: true)
-            try json?.write(to: cryptocurrencyDir, atomically: true, encoding: String.Encoding.utf16)
+            let moneyDir = directoryName.appendingPathComponent("money.txt", isDirectory: true)
+            userMoney = Double(try String(contentsOf: moneyDir, encoding: .utf16))!
         } catch {
             unknownErrorAlert = true
+        }
+        
+        for abbreviation in abbreviations {
+            readData(abbreviation)
         }
     }
     
@@ -392,7 +378,7 @@ struct HomeView: View {
             } else {
                 getCryptocurrency!.history = cryptocurrency.history
                 getCryptocurrency!.price = cryptocurrency.price
-                doDummyOnCryptocurrencies()
+                doDummyOnCryptocurrencies(cryptocurrencies: $cryptocurrencies, userMoney: $userMoney, unknownErrorAlert: $unknownErrorAlert)
             }
         } catch {
             unknownErrorAlert = true
@@ -418,7 +404,7 @@ struct HomeView: View {
             } else {
                 do {
                     try updatePrice(abbreviation, data!)
-                    doDummyOnCryptocurrencies()
+                    doDummyOnCryptocurrencies(cryptocurrencies: $cryptocurrencies, userMoney: $userMoney, unknownErrorAlert: $unknownErrorAlert)
                 } catch {
                     unknownErrorAlert = true
                 }
@@ -440,6 +426,7 @@ struct HomeView: View {
                 }
             } else {
                 runOutOfAPICredits = true
+                readAllData()
             }
 
         } else {
